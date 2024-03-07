@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+import Loader from "../components/Loader";
 
 const Main = () => {
     const [question, setQuestion] = useState('');
     const [response, setResponse] = useState('');
+    const [loading, setLoading] = useState(false);
   
     const handleQuestionChange = (event) => {
       setQuestion(event.target.value);
@@ -11,19 +13,30 @@ const Main = () => {
   
     const handleQuestionSubmit = async (event) => {
       event.preventDefault();
+      setLoading(true);
       try{
         const apiResponse = await fetchAPI(question);
-        console.log(apiResponse);
         setResponse(apiResponse.answer);
+        setLoading(false);
       }catch(error){
+        setLoading(false);
         setResponse(error.message);
       }
       
       
     };
 
+    useEffect(() => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2500);
+    }, []);
+
   return (
-    <div className="flex flex-col md:flex-row h-screen">
+    <div>
+    {loading ? (<Loader/> ):(
+      <div className="flex flex-col md:flex-row h-screen">
       <div className="flex flex-col w-full md:w-2/5 p-8">
         <h1 className="text-4xl font-bold mb-8 text-center md:text-left">
           Ask a question
@@ -46,8 +59,8 @@ const Main = () => {
         <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4 text-left">Response:</h2>
         
-              <div className="bg-white p-4 rounded-md border border-gray-300 h-40 mb-4">
-              <p>{response}</p>
+              <div className="bg-white p-4 rounded-md border border-gray-300 h-44 mb-4 overflow-y-auto scroll-smooth max-h-300">
+              <p className='text-semibold text-lg'>{response}</p>
             </div>
           
         </div>
@@ -58,6 +71,8 @@ const Main = () => {
           <div className="bg-white p-4 rounded-md border border-gray-300 h-96"></div>
         </div>
       </div>
+    </div>
+    ) }
     </div>
   );
 };
