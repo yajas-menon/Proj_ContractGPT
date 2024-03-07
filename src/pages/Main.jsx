@@ -103,7 +103,7 @@ const Main = () => {
                 </option>
                 
                   <option >
-                    {question}
+                    {documents}
                   </option>
               
               </select>
