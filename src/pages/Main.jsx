@@ -32,9 +32,9 @@ const Main = () => {
       const result = await axios.get("http://127.0.0.1:5000/get_documents", {
         question,
       });
-      setDocuments1(result);
+      setDocuments1(result.data);
       let x = new Set();
-      result.map((item, key) => {
+      result.data.map((item, key) => {
         x.add(item.doc_file_name);
       });
       let arr = Array.from(x);
