@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 const Main = () => {
     const [question, setQuestion] = useState('');
     const [response, setResponse] = useState('');
+    const [documents,setDocuments] = useState([]);
     const [loading, setLoading] = useState(false);
   
     const handleQuestionChange = (event) => {
@@ -27,11 +28,33 @@ const Main = () => {
     };
 
     useEffect(() => {
+      async function fetchData() {
+        try {
+          const result = await axios.get(
+            "http://127.0.0.1:5000/get_documents"
+          );
+          setDocuments(result.doc_file_name);
+        } catch (error) {
+          console.error("Error fetching data: ", error);
+        }
+      }
+      fetchData();
+    }, []);
+
+    useEffect(() => {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
       }, 2500);
     }, []);
+
+    // const handleInputChange = (e) => {
+    //   setFormData({
+    //     ...formData,
+    //     [e.target.id]: e.target.value,
+    //   });
+    // };
+  
 
   return (
     <div>
@@ -68,7 +91,23 @@ const Main = () => {
       <div className="w-full md:w-3/5 h-screen overflow-y-auto">
         <div className="p-8">
           <h2 className="text-2xl font-bold mb-8 ">Supporting Documents</h2>
-          <div className="bg-white p-4 rounded-md border border-gray-300 h-96"></div>
+          <div className="bg-white p-4 rounded-md border border-gray-300 h-96">
+          <select
+                id="vendorid"
+                name="documentid"
+                className="bg-gray-50  max-w-xs my-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                // onChange={handleInputChange}
+              >
+                <option value="" selected disabled hidden>
+                  Choose a document
+                </option>
+                
+                  <option >
+                    {question}
+                  </option>
+              
+              </select>
+          </div>
         </div>
       </div>
     </div>
