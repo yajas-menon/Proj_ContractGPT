@@ -9,6 +9,8 @@ const Main = () => {
   const [documents, setDocuments] = useState([]);
   const [documents1, setDocuments1] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [messageList, setMessageList] = useState([]);
+  const [Evidence, setEvidence] = useState([]);
 
   const handleQuestionChange = (event) => {
     setQuestion(event.target.value);
@@ -16,16 +18,39 @@ const Main = () => {
 
   const handleQuestionSubmit = async (event) => {
     event.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     try {
       const apiResponse = await fetchAPI(question);
       setResponse(apiResponse.answer);
+      setMessageList(apiResponse.message_list);
       await fetchData();
     } catch (error) {
-      // setLoading(false);
+      setLoading(false);
       setResponse(error.message);
     }
   };
+
+  async function getEvidence() {
+    try {
+      const result = await axios.post(
+        "http://127.0.0.1:5000/get_evidence_from_documents",
+        {
+          messageList,
+        },
+        
+      );
+      let response = result.data.evidence;
+      let keys = Object.keys(response);
+
+      let arr = [];
+      keys?.map((item, key) => {
+        arr.push(response[item]);
+      });
+      setEvidence(arr);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  }
 
   async function fetchData() {
     try {
@@ -33,9 +58,8 @@ const Main = () => {
         question,
       });
       setDocuments1(result.data);
-      console.log(result);
       let x = new Set();
-      result?.map((item, key) => {
+      result.data.map((item, key) => {
         x.add(item.doc_file_name);
       });
       let arr = Array.from(x);
@@ -67,8 +91,8 @@ const Main = () => {
       ) : (
         <div className="flex flex-col md:flex-row h-screen">
           <div className="flex flex-col w-full md:w-2/5 p-8">
-            <h1 className="text-4xl font-bold mb-8 text-center md:text-left">
-              Ask a question
+            <h1 className="text-3xl font-bold mb-8 text-center md:text-left">
+              Give a Prompt
             </h1>
             <form onSubmit={handleQuestionSubmit} className="flex flex-col">
               <input
@@ -76,7 +100,7 @@ const Main = () => {
                 value={question}
                 onChange={handleQuestionChange}
                 placeholder="Type your question here..."
-                className="p-4 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-4 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-x-auto"
               />
               <button
                 type="submit"
@@ -92,11 +116,14 @@ const Main = () => {
                 <p className="text-semibold text-lg">{response}</p>
               </div>
             </div>
+            
           </div>
           <div className="w-full md:w-3/5 h-screen overflow-y-auto">
             <div className="p-8">
-              <h2 className="text-2xl font-bold mb-8 ">Supporting Documents</h2>
-              <div className="bg-white p-4 rounded-md border border-gray-300 h-96">
+              <h2 className="text-xl font-bold mb-8 ">
+                Supporting Documents{" "}
+              </h2>
+              <div className="bg-white p-4 rounded-md border border-gray-300 h-96 overflow-y-auto">
                 <select
                   id="vendorid"
                   name="documentid"
@@ -118,6 +145,30 @@ const Main = () => {
                   documents1?.find((s) => s.doc_file_name == doc_name)
                     ?.doc_summarys
                 }
+              </div>
+            </div>
+          </div>
+          <div className="w-full md:w-3/5 h-screen overflow-y-auto">
+            <div className="p-8">
+              <h2 className="text-xl font-bold mb-8 ">Evidence</h2>
+              <div className="bg-white p-4 rounded-md border border-gray-300 h-96 overflow-y-auto">
+              <button
+              type="submit"
+              className="p-4 bg-black text-white rounded-md hover:bg-slate-900"
+              onClick={getEvidence}
+            >
+              Get Evidence
+            </button>
+                {Evidence.length === 0 && (
+                  <p className="text-center mt-32">No evidence found.</p>
+                )}
+                {Evidence.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <p>{item}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
