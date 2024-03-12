@@ -31,13 +31,15 @@ const Main = () => {
   };
 
   async function getEvidence() {
+    let obj = {
+      message_list: messageList,
+    };
     try {
       const result = await axios.post(
         "http://127.0.0.1:5000/get_evidence_from_documents",
         {
-          messageList,
-        },
-        
+          obj,
+        }
       );
       let response = result.data.evidence;
       let keys = Object.keys(response);
@@ -116,13 +118,10 @@ const Main = () => {
                 <p className="text-semibold text-lg">{response}</p>
               </div>
             </div>
-            
           </div>
           <div className="w-full md:w-3/5 h-screen overflow-y-auto">
             <div className="p-8">
-              <h2 className="text-xl font-bold mb-8 ">
-                Supporting Documents{" "}
-              </h2>
+              <h2 className="text-xl font-bold mb-8 ">Supporting Documents </h2>
               <div className="bg-white p-4 rounded-md border border-gray-300 h-96 overflow-y-auto">
                 <select
                   id="vendorid"
@@ -152,13 +151,13 @@ const Main = () => {
             <div className="p-8">
               <h2 className="text-xl font-bold mb-8 ">Evidence</h2>
               <div className="bg-white p-4 rounded-md border border-gray-300 h-96 overflow-y-auto">
-              <button
-              type="submit"
-              className="p-4 bg-black text-white rounded-md hover:bg-slate-900"
-              onClick={getEvidence}
-            >
-              Get Evidence
-            </button>
+                <button
+                  type="submit"
+                  className="p-4 bg-black text-white rounded-md hover:bg-slate-900"
+                  onClick={getEvidence}
+                >
+                  Get Evidence
+                </button>
                 {Evidence.length === 0 && (
                   <p className="text-center mt-32">No evidence found.</p>
                 )}
