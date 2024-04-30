@@ -195,6 +195,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 
 const Main = () => {
@@ -331,12 +332,21 @@ const Main = () => {
       <div>
         <Loader isLoading={loading} />
         <div className="">
-          <select className="bg-gray-50  max-w-xs my-10 ml-auto mr-10 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-            <option >Choose Where do you want to navigate</option>
-            <option onClick={handleClick}>Contract Generation using prompts</option>
-            <option >Contract Creation using form</option>
-            
-          </select>
+        <select
+          className="bg-gray-700 hover:bg-gray-900 mb-2 mt-4 ml-auto mr-10 border text-center font-semibold text-white text-md rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 block w-fit px-5 py-2.5"
+          onChange={(e) => {
+            const selectedOption = e.target.value;
+            window.location.href = selectedOption;
+          }}
+          
+        >
+          <option value="" className="bg-white text-black">Dropdown Menu</option>
+          <option value="/prompt" className="bg-white text-black">
+            Contract Generation using prompts
+          </option>
+          <option value="/fileView" className="bg-white text-black">Contract Creation using form</option>
+        </select>
+        
         </div>
         <div className="flex flex-col md:flex-row h-screen">
           <div className="w-full md:w-3/5 h-screen ">
