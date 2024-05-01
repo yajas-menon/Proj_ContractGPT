@@ -86,6 +86,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
 import axios from "axios";
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 
 const FileView = () => {
   const [metaData, setMetaData] = useState([
@@ -97,6 +98,7 @@ const FileView = () => {
     { key: "amount", value: "" }
   ]);
   const [loading, setLoading] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   // Function to handle changes in input fields
   const handleInputChange = (index, e) => {
@@ -106,7 +108,8 @@ const FileView = () => {
   };
 
   const handleFileUpload = (e) => {
-  //  
+    const file = e.target.files[0];
+    setUploadedFile(file);
   };
 
   // Function to create contract based on extracted meta data
@@ -120,9 +123,9 @@ const FileView = () => {
     });
 
     // Make API call using Axios
-    axios.post("http://localhost:5000/generate_agreement", contractData)
+    axios.post("http://localhost:5000/generate_agreement_form", contractData)
       .then(response => {
-        alert('Contract Generated Successfully assets folder')
+        alert('Contract Generated Successfully in assets folder')
         // Handle response if needed
       })
       .catch(error => {
@@ -141,6 +144,8 @@ const FileView = () => {
     }, 2500);
   }, []);
 
+
+
   return (
     <div>
       <Navbar />
@@ -151,6 +156,9 @@ const FileView = () => {
           <h2 className="text-xl font-bold mb-4 mt-4">File Name</h2>
           <div className="bg-zinc-100 p-4 rounded-lg">
             <h3 className="font-semibold">File Content</h3>
+            {uploadedFile && (
+              <DocViewer documents={[{ uri: URL.createObjectURL(uploadedFile) }]} pluginRenderers={DocViewerRenderers} />
+            )}
           </div>
         </div>
         <div className="flex-1 bg-white shadow-lg rounded-lg p-4">

@@ -1,5 +1,0 @@
-Hi My name is yajas
-
-This is a test document to test whether the program can view the file content.
-
-A quick Brown fox jumped over the lazy dogs 
