@@ -95,10 +95,13 @@ const FileView = () => {
     { key: "First date", value: "" },
     { key: "second date", value: "" },
     { key: "Description", value: "" },
-    { key: "amount", value: "" }
+    { key: "amount", value: "" },
+    { key: "Enter the response here to fill the document" , value:""}
   ]);
   const [loading, setLoading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [promptInput, setPromptInput] = useState("");
+  const [promptOutput, setPromptOutput] = useState("");
 
   // Function to handle changes in input fields
   const handleInputChange = (index, e) => {
@@ -134,6 +137,20 @@ const FileView = () => {
       })
       .finally(() => {
         setLoading(false);
+      });
+  };
+
+  const handlePromptSubmit = () => {
+    // Call API for prompt with promptInput
+    axios.post("http://localhost:5000/ask", { prompt: promptInput })
+      .then(response => {
+        // Update promptOutput state with the response
+        // console.log(response.data.response)
+        setPromptOutput(response.data.response);
+      })
+      .catch(error => {
+        console.error("API error:", error);
+        // Handle error if needed
       });
   };
 
@@ -187,6 +204,30 @@ const FileView = () => {
               </div>
             ))}
           </div>
+          <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          {/* Prompt Input */}
+          <div className="mt-4">
+            <label className="font-semibold">Prompt Input</label>
+            <input
+              type="text"
+              className="form-input block w-full px-2 py-1 border rounded mt-1"
+              value={promptInput}
+              onChange={(e) => setPromptInput(e.target.value)}
+              placeholder="Enter prompt input"
+            />
+          </div>
+          {/* Prompt Output */}
+          <div className="mt-4">
+            <label className="font-semibold">Prompt Response</label>
+            <div>{promptOutput}</div>
+          </div>
+          {/* Submit Button for Prompt */}
+          <button
+            onClick={handlePromptSubmit}
+            className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg mt-4"
+          >
+            Submit Prompt
+          </button>
         </div>
       </div>
     </div>
