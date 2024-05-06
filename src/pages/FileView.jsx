@@ -95,7 +95,11 @@ const FileView = () => {
     { key: "First date", value: "" },
     { key: "second date", value: "" },
     { key: "Description", value: "" },
-    { key: "amount", value: "" }
+    { key: "amount", value: "" },
+    { key: "address 1", value: "" },
+    { key: "address 2", value: ""},
+    { key: "contact 1", value: ""},
+    { key: "contact 2", value: ""}
   ]);
   const [loading, setLoading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -186,6 +190,7 @@ const FileView = () => {
                 />
               </div>
             ))}
+
           </div>
         </div>
       </div>
