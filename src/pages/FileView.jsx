@@ -180,6 +180,7 @@ const FileView = () => {
         <Loader isLoading={loading} />
         <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">
           <input type="file" id="file" onChange={handleFileUpload} />
+          
           <h2 className="text-xl font-bold mb-4 mt-4">File Name</h2>
           <div className="bg-zinc-100 p-4 rounded-lg">
             <h3 className="font-semibold">File Content</h3>
