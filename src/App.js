@@ -7,6 +7,9 @@ import PromptInput from './pages/PromptInput';
 import FileView from './pages/FileView';
 import ContractReview from './pages/ContractReview';
 import ContractNegotiation from './pages/ContractNegotiation';
+import ContractDashboard from './pages/ContractDashboard';
+import ClauseReview from './pages/ClauseReview';
+
 
 function App() {
  
@@ -14,11 +17,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Main />}></Route>
+        <Route exact path='/' element={<ContractDashboard/>}></Route>
+        <Route exact path="/Adhoc" element={<Main />}></Route>
         <Route exact path="/prompt" element={<PromptInput />}></Route>
         <Route exact path="/fileView" element={<FileView />}></Route>
         <Route exact path='/ContractReview' element={<ContractReview/>}></Route>
         <Route exact path='/negotiation' element={<ContractNegotiation/>}></Route>
+        <Route exact path='/AiReview' element={<ClauseReview/>}></Route>
       </Routes>
     </Router>
 

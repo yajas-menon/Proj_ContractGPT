@@ -1,51 +1,77 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-import Navbar from '../components/Navbar'
 
 const ContractReview = () => {
-    const [uploadedFile, setUploadedFile] = useState(null);
+  const [metaData, setMetaData] = useState([
+    { key: "first name", value: "" },
+    { key: "second name", value: "" },
+    { key: "First date", value: "" },
+    { key: "second date", value: "" },
+    { key: "Description", value: "" },
+    { key: "amount", value: "" },
+    { key: "Enter the response here to fill the document", value: "" }
+  ]);
 
-    const handleFileUpload = (e) => {
-        const file = e.target.files[0];
-        setUploadedFile(file);
-    };
-    const navigate=useNavigate();
-    return (
-        <div>
-            <Navbar />
-            
-            {/* <ChevronLeftIcon className="w-5 h-5" /> */}
-            <button type="button" className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg mx-10 my-8" onClick={() => navigate(-1)}>
-              <span>Back</span>
-            </button>
+  const [loading, setLoading] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
+ 
+  const navigate = useNavigate();
+  // Function to handle changes in input fields
+ 
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setUploadedFile(file);
+  };
+
+
+ 
+
+
+
+  const docs = [
+    
+    { uri: require("../assets/SOW_Equiom_May_24, 2021.pdf") }, // Local File
+  ];
+
+
+  return (
+    <div>
+      <Navbar />
+      <h2 className="text-3xl font-bold mx-10 my-4 p-4">Review with Base template</h2>
+      <hr className="h-px mx-10 my-8 bg-gray-200 border-0 dark:bg-gray-700"/>
+      <div className="flex flex-col lg:flex-row gap-4 p-4 mt-12">
+        <Loader isLoading={loading} />
+        <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">
+          <input type="file" id="file" onChange={handleFileUpload} />
           
-            <div class="bg-white mx-10 my-2">
-                <header class="bg-white  text-black py-4 px-6">
-                    <h1 class="text-2xl font-bold">Contract Document Review</h1>
-                </header>
-                <main class="p-4">
-                    <input type="file" id="file" onChange={handleFileUpload} />
-                    <section class="mb-8">
-
-                        <h2 class="text-lg font-semibold mb-2 mt-2">Document Preview</h2>
-
-                        {uploadedFile && (
-                            <DocViewer documents={[{ uri: URL.createObjectURL(uploadedFile) }]} pluginRenderers={DocViewerRenderers} />
-                        )}
-                    </section>
-                    <section>
-                        <h2 class="text-lg font-semibold mb-2">Comments</h2>
-                        <textarea class="w-full h-32 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300  text-black" placeholder="Add your comments here..."></textarea>
-                    </section>
-                    <div className="flex justify-center gap-4 mt-4">
-                        <button  className='border border-slate-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:text-zinc-950 hover:shadow-lg'>Reject</button>
-                        <button className='bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg'>Approve</button>
-                    </div>
-                </main>
-            </div>
+          <div className="bg-zinc-100 p-4 rounded-lg mb-4 mt-4">
+            <h3 className="font-semibold font-2xl">Base Template</h3>
+            <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />
+          </div>
         </div>
-    )
-}
+        <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">Generated file</h2>
+            
+          </div>
+         
+          <div className="bg-zinc-100 p-4 rounded-lg">
+            <h3 className="font-semibold">File Content</h3>
+            {uploadedFile && (
+              <DocViewer documents={[{ uri: URL.createObjectURL(uploadedFile) }]} pluginRenderers={DocViewerRenderers} />
+            )}
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  );
+};
 
-export default ContractReview   
+export default ContractReview;
+

@@ -8,9 +8,10 @@ const Navbar = () => (
         <span className="mx-10 self-center text-2xl font-semibold whitespace-nowrap dark:text-black">ContractGPT</span>
       </a>
       <div className="flex items-center space-x-4">
-        <a href='/' className='text-lg font-medium text-gray-800 hover:text-gray-900'>Ad-Hoc</a>
+        <a href='/Adhoc' className='text-lg font-medium text-gray-800 hover:text-gray-900'>Ad-Hoc</a>
         <a href="/fileView" className="text-lg font-medium text-gray-800 hover:text-gray-900">Creation</a>
         <a href="/negotiation" className="text-lg font-medium text-gray-800 hover:text-gray-900">Negotiation</a>
+        <a href="/AiReview" className="text-lg font-medium text-gray-800 hover:text-gray-900">Clause Review</a>
         {/* Add more links here if needed */}
       </div>
     </div>
