@@ -331,24 +331,8 @@ const Main = () => {
       <Navbar />
       <div>
         <Loader isLoading={loading} />
-        <div className="">
-        <select
-          className="bg-gray-700 hover:bg-gray-900 mb-2 mt-4 ml-auto mr-10 border text-center font-semibold text-white text-md rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 block w-fit px-5 py-2.5"
-          onChange={(e) => {
-            const selectedOption = e.target.value;
-            window.location.href = selectedOption;
-          }}
-          
-        >
-          <option value="" className="bg-white text-black">Dropdown Menu</option>
-          <option value="/prompt" className="bg-white text-black">
-            Contract Generation using prompts
-          </option>
-          <option value="/fileView" className="bg-white text-black">Contract Creation using form</option>
-        </select>
-        
-        </div>
-        <div className="flex flex-col md:flex-row h-screen">
+       
+        <div className="flex flex-col md:flex-row h-screen mt-4">
           <div className="w-full md:w-3/5 h-screen ">
             <div className="p-8">
               <h2 className="text-2xl font-bold mb-8 mx-4">File Upload</h2>

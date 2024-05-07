@@ -85,6 +85,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 
@@ -96,14 +97,14 @@ const FileView = () => {
     { key: "second date", value: "" },
     { key: "Description", value: "" },
     { key: "amount", value: "" },
-    { key: "address 1", value: "" },
-    { key: "address 2", value: ""},
-    { key: "contact 1", value: ""},
-    { key: "contact 2", value: ""}
+    { key: "Enter the response here to fill the document", value: "" }
   ]);
+
   const [loading, setLoading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
-
+  const [promptInput, setPromptInput] = useState("");
+  const [promptOutput, setPromptOutput] = useState("");
+  const navigate = useNavigate();
   // Function to handle changes in input fields
   const handleInputChange = (index, e) => {
     const updatedMetaData = [...metaData];
@@ -141,6 +142,27 @@ const FileView = () => {
       });
   };
 
+  const handlePromptSubmit = () => {
+    // Call API for prompt with promptInput
+    axios.post("http://localhost:5000/ask", { prompt: promptInput })
+      .then(response => {
+        
+        // console.log(response.data.response)
+        let eve = {
+            target:{
+              value:response.data.response
+            }
+        }
+        handleInputChange(6,eve);
+        setPromptOutput(response.data.response);
+
+      })
+      .catch(error => {
+        console.error("API error:", error);
+        // Handle error 
+      });
+  };
+
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
@@ -153,7 +175,8 @@ const FileView = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col lg:flex-row gap-4 p-4 mt-4">
+      
+      <div className="flex flex-col lg:flex-row gap-4 p-4 mt-12">
         <Loader isLoading={loading} />
         <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">
           <input type="file" id="file" onChange={handleFileUpload} />
@@ -192,7 +215,34 @@ const FileView = () => {
             ))}
 
           </div>
+          <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          {/* Prompt Input */}
+          <div className="mt-4">
+            <label className="font-semibold">Prompt Input</label>
+            <textarea
+              type="text"
+              className="form-input block w-full px-2 py-1 border rounded mt-1"
+              value={promptInput}
+              onChange={(e) => setPromptInput(e.target.value)}
+              placeholder="Enter prompt input"
+            />
+          </div>
+          {/* Prompt Output */}
+          <div className="mt-4">
+            <label className="font-semibold">Prompt Response</label>
+            <div>{promptOutput}</div>
+          </div>
+          {/* Submit Button for Prompt */}
+          <button
+            onClick={handlePromptSubmit}
+            className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg mt-4"
+          >
+            Submit Prompt
+          </button>
         </div>
+      </div>
+      <div className="flex justify-center items-center mt-4">
+        <button className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg" onClick={() => navigate("/ContractReview")}>Go for review</button>
       </div>
     </div>
   );
