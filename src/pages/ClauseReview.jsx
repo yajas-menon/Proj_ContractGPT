@@ -27,10 +27,10 @@ export default function ClauseReview() {
   return (
     <div>
       <Navbar />
-      <body className="bg-zinc-100 dark:bg-zinc-800">
+      <body className="bg-zinc-100 ">
         <div className="flex flex-col md:flex-row h-screen">
           <div className="flex-1 p-6 overflow-auto">
-            <div className="bg-white dark:bg-zinc-700 shadow-lg p-4 rounded-lg">
+            <div className="bg-white  shadow-lg p-4 rounded-lg">
               <div className="flex justify-between items-center mb-4">
                 <input type="file" id="file" onChange={handleFileUpload} />
                 <button className="px-4 py-2 bg-gray-900 hover:bg-gray-700 text-white rounded-md">
@@ -50,16 +50,16 @@ export default function ClauseReview() {
             </div>
           </div>
 
-          <div className="w-full md:w-96 p-6 bg-white dark:bg-zinc-700 overflow-auto my-4 mx-10">
+          <div className="w-full md:w-96 p-6 bg-white  overflow-auto my-4 mx-10">
             <div className="mb-4">
               <h2 className="text-lg font-semibold dark:text-white">
                 Comments
               </h2>
-              <div className="mt-2 bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg">
+              <div className="mt-2 bg-zinc-100  p-4 rounded-lg">
                 <p
                   className={`text-sm ${
                     expandedComments ? "" : "truncate"
-                  } text-zinc-800 dark:text-zinc-200`}
+                  } text-black `}
                 >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Pellentesque et tortor quis sapien auctor finibus. Curabitur
@@ -82,11 +82,11 @@ export default function ClauseReview() {
               <h2 className="text-lg font-semibold dark:text-white">
                 Revisions
               </h2>
-              <div className="mt-2 bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg">
+              <div className="mt-2 bg-zinc-100  p-4 rounded-lg">
                 <p
                   className={`text-sm ${
                     expandedRevisions ? "" : "truncate"
-                  } text-zinc-800 dark:text-zinc-200`}
+                  } text-black `}
                 >
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Pellentesque et tortor quis sapien auctor finibus. Curabitur
