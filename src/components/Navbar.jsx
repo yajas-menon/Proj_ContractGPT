@@ -11,7 +11,7 @@ const Navbar = () => (
         <a href='/Adhoc' className='text-lg font-medium text-gray-800 hover:text-gray-900'>Ad-Hoc</a>
         <a href="/fileView" className="text-lg font-medium text-gray-800 hover:text-gray-900">Creation</a>
         <a href="/negotiation" className="text-lg font-medium text-gray-800 hover:text-gray-900">Negotiation</a>
-        <a href="/AiReview" className="text-lg font-medium text-gray-800 hover:text-gray-900">Clause Review</a>
+        <a href="/ContractReview" className="text-lg font-medium text-gray-800 hover:text-gray-900">Approval</a>
         {/* Add more links here if needed */}
       </div>
     </div>
