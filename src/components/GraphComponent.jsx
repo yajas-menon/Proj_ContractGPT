@@ -1,6 +1,95 @@
 import React from 'react'
+import { Line, Bar } from 'react-chartjs-2';
+import {Chart as ChartJS,
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    BarElement,
+    ArcElement,
+    Tooltip,
+    Legend,
+    } from 'chart.js';
+
+    ChartJS.register(
+    LineElement,CategoryScale,
+    BarElement,
+    LinearScale,
+    PointElement);
 
 const GraphComponent = () => {
+    const data = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          {
+            label: 'Bar Dataset',
+            type: 'line',
+            data: [23, 11, 22, 27, 13, 37, 21],
+            fill: false,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            yAxisID: 'y-axis-1',
+          },
+          {
+            label: 'Line Dataset',
+            type: 'line',
+            data: [30, 25, 36, 30, 45, 64, 52],
+            fill: false,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            yAxisID: 'y-axis-2',
+          },
+        ],
+      };
+
+      const options = {
+        
+      };
+
+      const data1 = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          {
+            label: 'Bar Dataset',
+            type: 'bar',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            yAxisID: 'y-axis-1',
+          },
+          {
+            label: 'Line Dataset',
+            type: 'bar',
+            data: [30, 50, 10, 60, 40, 70, 90],
+            fill: false,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            yAxisID: 'y-axis-2',
+          },
+        ],
+      };
+
+      const options1 = {
+        scales: {
+          yAxes: [
+            {
+              type: 'linear',
+              display: true,
+              position: 'left',
+              id: 'y-axis-1',
+            },
+            {
+              type: 'linear',
+              display: true,
+              position: 'right',
+              id: 'y-axis-2',
+              gridLines: {
+                drawOnChartArea: false,
+              },
+            },
+          ],
+        },
+      };
+
   return (
     <div>
       <body class="bg-zinc-100 p-4">
@@ -18,7 +107,7 @@ const GraphComponent = () => {
                     <option>Month</option>
                 </select>
             </div>
-            <img src="https://placehold.co/400x250?text=Line+Chart" alt="Line Chart"/>
+            <Line data={data} options={options} />
         </div>
 
         
@@ -31,7 +120,7 @@ const GraphComponent = () => {
                     <option>This Month</option>
                 </select>
             </div>
-            <img src="https://placehold.co/400x250?text=Bar+Chart" alt="Bar Chart"/>
+            <Bar data={data1} options={options1} />
         </div>
     </div>
 </body>

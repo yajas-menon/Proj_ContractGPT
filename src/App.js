@@ -8,7 +8,9 @@ import FileView from './pages/FileView';
 import ContractReview from './pages/ContractReview';
 import ContractNegotiation from './pages/ContractNegotiation';
 import ContractDashboard from './pages/ContractDashboard';
-import ClauseReview from './pages/ClauseReview';
+// import ClauseReview from './pages/ClauseReview';
+import PowerBiReport from './pages/PowerBiReport';
+import AIReview from './pages/AIReview';
 
 
 function App() {
@@ -23,7 +25,8 @@ function App() {
         <Route exact path="/fileView" element={<FileView />}></Route>
         <Route exact path='/ContractReview' element={<ContractReview/>}></Route>
         <Route exact path='/negotiation' element={<ContractNegotiation/>}></Route>
-        <Route exact path='/AiReview' element={<ClauseReview/>}></Route>
+        <Route exact path='/AiReview' element={<AIReview/>}></Route>
+        <Route exact path='/PowerBiReport' element={<PowerBiReport/>}></Route>
       </Routes>
     </Router>
 

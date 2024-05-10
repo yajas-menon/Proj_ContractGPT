@@ -4,13 +4,14 @@ import Loader from "../components/Loader";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import axios from "axios";
 
-export default function ClauseReview() {
+export default function AIReview() {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [output , setOutput] = useState();
   const [loading, setLoading] = useState(false);
   const [outputColours, setOutputColours] = useState({});
+  const [outputNew , setNewOutput] = useState();
   const [clauses, setClauses] = useState([
     {
       title: 'Employee Solicitation Clause',
@@ -141,6 +142,7 @@ export default function ClauseReview() {
         
     }
   };
+  
 
   useEffect(() => {
     setLoading(true);
