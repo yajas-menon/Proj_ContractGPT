@@ -33,10 +33,10 @@ const ContractReview = () => {
 
 
 
-  const docs = [
+  // const docs = [
     
-    { uri: require("../assets/SOW_Equiom_May_24, 2021.pdf") }, // Local File
-  ];
+  //   { uri: require("../assets/SOW_Equiom_May_24, 2021.pdf") }, // Local File
+  // ];
 
 
   return (
@@ -51,7 +51,7 @@ const ContractReview = () => {
           
           <div className="bg-zinc-100 p-4 rounded-lg mb-4 mt-4">
             <h3 className="font-semibold font-2xl">Base Template</h3>
-            <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />
+            {/* <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} /> */}
           </div>
         </div>
         <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">

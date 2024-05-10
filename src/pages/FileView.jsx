@@ -91,12 +91,20 @@ import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 
 const FileView = () => {
   const [metaData, setMetaData] = useState([
-    { key: "first name", value: "" },
-    { key: "second name", value: "" },
-    { key: "First date", value: "" },
-    { key: "second date", value: "" },
-    { key: "Description", value: "" },
-    { key: "amount", value: "" },
+    { key: "party 1", value: "" },
+    { key: "party 2", value: "" },
+    { key: "Work Location", value: "" },
+    { key: "Working Hours", value: "" },
+    { key: "Resource Name", value: "" },
+    { key: "Role of Resource", value: "" },
+    { key: "Skill Category", value: "" },
+    { key: "Team Size", value: "" },
+    { key: "Start Date", value: "" },
+    { key: "End Date", value: "" },
+    { key: "Billing Rate", value: "" },
+    { key: "Currency", value: "" },
+
+
     { key: "Enter the response here to fill the document", value: "" }
   ]);
 
@@ -153,7 +161,7 @@ const FileView = () => {
               value:response.data.response
             }
         }
-        handleInputChange(6,eve);
+        handleInputChange(13,eve);
         setPromptOutput(response.data.response);
 
       })
