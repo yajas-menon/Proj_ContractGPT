@@ -255,6 +255,7 @@ const Main = () => {
     e.preventDefault();
     let obj = {
       EvidenceBinary: file?.split(",")[1],
+      file_name: File.name.split('.').slice(0, -1).join('.')
     };
     let url = "http://127.0.0.1:5000/upload_doc";
     const config = {
@@ -362,7 +363,7 @@ const Main = () => {
             <h1 className="text-3xl font-bold mb-8 text-center md:text-left">
               Give a Prompt
             </h1>
-            <input
+            <textarea
               type="text"
               value={question}
               onChange={handleQuestionChange}
@@ -436,6 +437,7 @@ const Main = () => {
             </div>
           </div>
         </div>{" "}
+        
       </div>
     </div>
   );

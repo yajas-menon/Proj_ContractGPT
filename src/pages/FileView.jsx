@@ -88,6 +88,7 @@ import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import emailjs from 'emailjs-com';
 
 const FileView = () => {
   const [metaData, setMetaData] = useState([
@@ -138,7 +139,22 @@ const FileView = () => {
     // Make API call using Axios
     axios.post("http://localhost:5000/generate_agreement_form", contractData)
       .then(response => {
-        alert('Contract Generated Successfully in assets folder')
+        emailjs.send('service_1rq9qjf', 'template_8u7vab4', {
+          to_email: 'yajasmenon2913@gmail.com', // Replace with recipient's email
+          from_email: 'yajasmenon@gmail.com', // Replace with your email
+          subject: 'Contract Generated Successfully',
+          message: 'Your contract has been generated successfully. Please go for review.',
+        }, 'lsezoTTwZcd7bEFnW')
+          .then(() => {
+            alert('An email has been sent to ramu@happiestminds.com requesting to review and approve the SOW contract document.');
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    
+        // Handle response if needed
+        console.log("Contract Generated Successfully");
+     
         // Handle response if needed
       })
       .catch(error => {

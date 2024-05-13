@@ -10,7 +10,7 @@ const ContractDashboard = () => {
     <div>
       <Navbar />
       <main class="p-4 mx-10 my-4">
-        <h1 className="text-3xl font-bold">Operational Dashboard</h1>
+        <h1 className="text-3xl font-bold">Operational Dashboard for Contracts</h1>
         <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"/>
         <Stepper />
         <CardComponent/>

@@ -24,17 +24,16 @@ const GraphComponent2 = () => {
   ];
   const data1 = {
     labels: [
-      'Red',
-      'Blue',
-      'Yellow'
+      'Compliance',
+      'Non-Compliance',
+      
     ],
     datasets: [{
       label: 'My First Dataset',
-      data: [300, 50, 100],
+      data: [300, 50],
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
       ],
       hoverOffset: 4
     }]
@@ -49,7 +48,7 @@ const GraphComponent2 = () => {
         <div class="flex-1">
           <div class="bg-white shadow rounded-lg p-6">
             <div class="flex justify-between items-center mb-4">
-              <h2 class="text-2xl font-semibold">Visitors Analytics</h2>
+              <h2 class="text-2xl font-semibold">Compliance Analysis-Y2D</h2>
               <select class="border border-zinc-300 rounded p-2 text-sm">
                 <option>Monthly</option>
                 <option>Weekly</option>
@@ -71,7 +70,7 @@ const GraphComponent2 = () => {
         <div class="flex-1">
           <div class="bg-white shadow rounded-lg p-6">
             <div class="flex justify-between items-center mb-4">
-              <h2 class="text-2xl font-semibold">Region Labels</h2>
+              <h2 class="text-2xl font-semibold">Contract Based on Geo Location</h2>
             </div>
             <div class="flex justify-center items-center">
               <WorldMap
