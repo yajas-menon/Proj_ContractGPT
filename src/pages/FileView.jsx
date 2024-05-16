@@ -89,6 +89,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import emailjs from 'emailjs-com';
+import { toast } from "react-toastify";
 
 const FileView = () => {
   const [metaData, setMetaData] = useState([
@@ -146,7 +147,7 @@ const FileView = () => {
           message: 'Your contract has been generated successfully. Please go for review.',
         }, 'lsezoTTwZcd7bEFnW')
           .then(() => {
-            alert('An email has been sent to ramu@happiestminds.com requesting to review and approve the SOW contract document.');
+            toast.success('An email has been sent to tellsathish@gmail.com requesting to review and approve the SOW contract document.');
           })
           .catch((error) => {
             console.error(error);
