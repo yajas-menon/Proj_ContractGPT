@@ -105,9 +105,6 @@ const FileView = () => {
     { key: "End Date", value: "" },
     { key: "Billing Rate", value: "" },
     { key: "Currency", value: "" },
-
-
-    { key: "Enter the response here to fill the document", value: "" }
   ]);
 
   const [loading, setLoading] = useState(false);
@@ -147,7 +144,7 @@ const FileView = () => {
           message: 'Your contract has been generated successfully. Please go for review.',
         }, 'lsezoTTwZcd7bEFnW')
           .then(() => {
-            toast.success('An email has been sent to tellsathish@gmail.com requesting to review and approve the SOW contract document.');
+            toast.success('An email has been sent to the reviewer requesting to review and approve the SOW contract document.');
           })
           .catch((error) => {
             console.error(error);
@@ -167,26 +164,26 @@ const FileView = () => {
       });
   };
 
-  const handlePromptSubmit = () => {
-    // Call API for prompt with promptInput
-    axios.post("http://localhost:5000/ask", { prompt: promptInput })
-      .then(response => {
+  // const handlePromptSubmit = () => {
+  //   // Call API for prompt with promptInput
+  //   axios.post("http://localhost:5000/ask", { prompt: promptInput })
+  //     .then(response => {
         
-        // console.log(response.data.response)
-        let eve = {
-            target:{
-              value:response.data.response
-            }
-        }
-        handleInputChange(13,eve);
-        setPromptOutput(response.data.response);
+  //       // console.log(response.data.response)
+  //       let eve = {
+  //           target:{
+  //             value:response.data.response
+  //           }
+  //       }
+  //       handleInputChange(13,eve);
+  //       setPromptOutput(response.data.response);
 
-      })
-      .catch(error => {
-        console.error("API error:", error);
-        // Handle error 
-      });
-  };
+  //     })
+  //     .catch(error => {
+  //       console.error("API error:", error);
+  //       // Handle error 
+  //     });
+  // };
 
   useEffect(() => {
     setLoading(true);
@@ -241,9 +238,9 @@ const FileView = () => {
             ))}
 
           </div>
-          <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          {/* <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr> */}
           {/* Prompt Input */}
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <label className="font-semibold">Prompt Input</label>
             <textarea
               type="text"
@@ -252,24 +249,22 @@ const FileView = () => {
               onChange={(e) => setPromptInput(e.target.value)}
               placeholder="Enter prompt input"
             />
-          </div>
+          </div> */}
           {/* Prompt Output */}
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <label className="font-semibold">Prompt Response</label>
             <div>{promptOutput}</div>
-          </div>
+          </div> */}
           {/* Submit Button for Prompt */}
-          <button
+          {/* <button
             onClick={handlePromptSubmit}
             className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg mt-4"
           >
             Submit Prompt
-          </button>
+          </button> */}
         </div>
       </div>
-      <div className="flex justify-center items-center mt-4">
-        <button className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg" onClick={() => navigate("/AiReview")}>Go for review</button>
-      </div>
+     
     </div>
   );
 };

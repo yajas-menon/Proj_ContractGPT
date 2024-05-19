@@ -10,7 +10,7 @@ import ContractNegotiation from './pages/ContractNegotiation';
 import ContractDashboard from './pages/ContractDashboard';
 // import ClauseReview from './pages/ClauseReview';
 import PowerBiReport from './pages/PowerBiReport';
-import AIReview from './pages/AiReview';
+import AIReview from './pages/AIReview';
 import Login from './pages/Login';
 import Execution from './pages/ContractExecution';
 import { Slide, ToastContainer, Zoom, toast } from "react-toastify";
@@ -23,7 +23,7 @@ function App() {
     <Router>
       <ToastContainer position="top-center"
         autoClose={2000}
-        hideProgressBar={false}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}

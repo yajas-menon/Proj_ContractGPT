@@ -1,6 +1,6 @@
 
 import React  ,{useState}from 'react';
-import Logo from '../assets/Screenshot 2024-05-12 225359.png'
+import Logo from '../images/Screenshot 2024-05-12 225359.png'
 
 const Navbar = ({userRole}) => (
 
@@ -16,7 +16,7 @@ const Navbar = ({userRole}) => (
         <a href="/fileView" className="text-lg font-medium text-gray-800 hover:text-gray-900">Creation</a>
         <a href="/AiReview" className="text-lg font-medium text-gray-800 hover:text-gray-900">Review</a>
         <a href="/execution" className="text-lg font-medium text-gray-800 hover:text-gray-900">Execution</a>
-        <a href="/" className="text-lg font-medium text-gray-800 hover:text-gray-900">Logout</a>
+        {/* <a href="/" className="text-lg font-medium text-gray-800 hover:text-gray-900">Logout</a> */}
      
 
         {/* Add more links here if needed */}
