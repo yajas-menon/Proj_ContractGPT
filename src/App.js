@@ -9,7 +9,7 @@ import ContractReview from './pages/ContractReview';
 import ContractNegotiation from './pages/ContractNegotiation';
 import ContractDashboard from './pages/ContractDashboard';
 // import ClauseReview from './pages/ClauseReview';
-import PowerBiReport from './pages/PowerBiReport';
+import PowerBiReport from './pages/ManagementDashoard';
 import AIReview from './pages/AIReview';
 import Login from './pages/Login';
 import Execution from './pages/ContractExecution';
@@ -40,7 +40,7 @@ function App() {
         <Route exact path='/ContractReview' element={<ContractReview />}></Route>
         <Route exact path='/negotiation' element={<ContractNegotiation />}></Route>
         <Route exact path='/AiReview' element={<AIReview />}></Route>
-        <Route exact path='/PowerBiReport' element={<PowerBiReport />}></Route>
+        <Route exact path='/managementdashboard' element={<PowerBiReport />}></Route>
         <Route exact path='/execution' element={<Execution />}></Route>
       </Routes>
     </Router>

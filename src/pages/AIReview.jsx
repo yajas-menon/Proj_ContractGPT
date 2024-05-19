@@ -104,6 +104,7 @@ export default function AIReview() {
     await axios(config)
       .then(async (res) => {
         console.log(res);
+        setLoading(false);
         alert("File uploaded successfully");
       })
       .catch((err) => {
@@ -227,6 +228,7 @@ export default function AIReview() {
               <div className="text-zinc-800 dark:text-zinc-200">
                 <div className="bg-zinc-100 p-4 rounded-lg mb-4 mt-4">
                   {uploadedFile && (
+                    // eslint-disable-next-line jsx-a11y/iframe-has-title
                     <iframe
                       src={file}
                       width="100%"
