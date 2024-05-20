@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar"; // Import the Navbar component
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -47,9 +47,9 @@ export default function Login() {
         role: formData.role,
       });
       setMode("login"); // Switch to login mode after successful registration
-      alert("Registration successful. Please login.");
+      toast.success("Registration successful. Please login.");
     } catch (error) {
-      alert("Error during registration. Please try again.");
+      toast.error("Error during registration. Please try again.");
     }
   };
   const handleChange = (e) => {
