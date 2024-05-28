@@ -28,10 +28,10 @@ export default function Login() {
       );
       const role = response.data.user.role;
       toast.success("Login successful");
-      if (role == "reviewer") {
+      if (role === "reviewer") {
         navigate("/AiReview");
-      } else if (role == "creater") {
-        navigate("/PowerBiReport");
+      } else if (role === "creater") {
+        navigate("/managementdashboard");
       }
     } catch (error) {
       toast.error("Invalid email or password");

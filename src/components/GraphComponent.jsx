@@ -22,7 +22,7 @@ const GraphComponent = () => {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
           {
-            label: 'Bar Dataset',
+            label: 'Line Dataset 1',
             type: 'line',
             data: [23, 11, 22, 27, 13, 37, 21],
             fill: false,
@@ -31,7 +31,7 @@ const GraphComponent = () => {
             yAxisID: 'y-axis-1',
           },
           {
-            label: 'Line Dataset',
+            label: 'Line Dataset 2',
             type: 'line',
             data: [30, 25, 36, 30, 45, 64, 52],
             fill: false,
@@ -49,7 +49,7 @@ const GraphComponent = () => {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
           {
-            label: 'Bar Dataset',
+            label: 'Bar Dataset 1',
             type: 'bar',
             data: [65, 59, 80, 81, 56, 55, 40],
             fill: false,
@@ -58,7 +58,7 @@ const GraphComponent = () => {
             yAxisID: 'y-axis-1',
           },
           {
-            label: 'Line Dataset',
+            label: 'Line Dataset 2',
             type: 'bar',
             data: [30, 50, 10, 60, 40, 70, 90],
             fill: false,

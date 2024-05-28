@@ -105,16 +105,13 @@ const FileView = () => {
     { key: "End Date", value: "" },
     { key: "Billing Rate", value: "" },
     { key: "Currency", value: "" },
-
-
-    { key: "Enter the response here to fill the document", value: "" }
   ]);
 
   const [loading, setLoading] = useState(false);
+  const [file , setFile] = useState(null);
+  const [fileName, setFileName] = useState("");
   const [uploadedFile, setUploadedFile] = useState(null);
-  const [promptInput, setPromptInput] = useState("");
-  const [promptOutput, setPromptOutput] = useState("");
-  const navigate = useNavigate();
+  
   // Function to handle changes in input fields
   const handleInputChange = (index, e) => {
     const updatedMetaData = [...metaData];
@@ -122,9 +119,80 @@ const FileView = () => {
     setMetaData(updatedMetaData);
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    setUploadedFile(file);
+  async function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (err) => reject(err);
+    });
+  }
+
+  const handleFileUpload = async (e) => {
+    let file = "";
+
+    await getBase64(e.target.files[0]).then((data) => {
+      setFile(data);
+    });
+    setUploadedFile(e.target.files[0]);
+    setFileName(file.name);
+  };
+
+  const handleFileUpload1 = async (e) => {
+    const files = Array.from(e.target.files);
+    const filePromises = files.map(async (file) => {
+      return new Promise((resolve, reject) => {
+        getBase64(file)
+          .then((data) => {
+            resolve({ name: file.name, data });
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    });
+  
+    try {
+      const fileData = await Promise.all(filePromises);
+      console.log(fileData);
+      setFile(fileData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleFileSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+  
+    const obj = {
+      Template_binary: file[1]?.data.split(",")[1],
+      proposal_binary: file[0]?.data.split(",")[1],
+    };
+  
+    const config = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      url: "http://127.0.0.1:5000/upload_doc_1",
+      data: obj,
+    };
+  
+
+    await axios(config)
+      .then(async (res) => {
+        console.log(res);
+        setLoading(false);
+        toast.success("File uploaded successfully");
+        
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
   };
 
   // Function to create contract based on extracted meta data
@@ -147,7 +215,7 @@ const FileView = () => {
           message: 'Your contract has been generated successfully. Please go for review.',
         }, 'lsezoTTwZcd7bEFnW')
           .then(() => {
-            toast.success('An email has been sent to tellsathish@gmail.com requesting to review and approve the SOW contract document.');
+            toast.success('An email has been sent to the reviewer requesting to review and approve the SOW contract document.');
           })
           .catch((error) => {
             console.error(error);
@@ -167,26 +235,26 @@ const FileView = () => {
       });
   };
 
-  const handlePromptSubmit = () => {
-    // Call API for prompt with promptInput
-    axios.post("http://localhost:5000/ask", { prompt: promptInput })
-      .then(response => {
+  // const handlePromptSubmit = () => {
+  //   // Call API for prompt with promptInput
+  //   axios.post("http://localhost:5000/ask", { prompt: promptInput })
+  //     .then(response => {
         
-        // console.log(response.data.response)
-        let eve = {
-            target:{
-              value:response.data.response
-            }
-        }
-        handleInputChange(13,eve);
-        setPromptOutput(response.data.response);
+  //       // console.log(response.data.response)
+  //       let eve = {
+  //           target:{
+  //             value:response.data.response
+  //           }
+  //       }
+  //       handleInputChange(13,eve);
+  //       setPromptOutput(response.data.response);
 
-      })
-      .catch(error => {
-        console.error("API error:", error);
-        // Handle error 
-      });
-  };
+  //     })
+  //     .catch(error => {
+  //       console.error("API error:", error);
+  //       // Handle error 
+  //     });
+  // };
 
   useEffect(() => {
     setLoading(true);
@@ -194,6 +262,8 @@ const FileView = () => {
       setLoading(false);
     }, 2500);
   }, []);
+
+
 
 
 
@@ -205,12 +275,20 @@ const FileView = () => {
         <Loader isLoading={loading} />
         <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">
           <input type="file" id="file" onChange={handleFileUpload} />
+          <input type="file" id="file" onChange={handleFileUpload1} multiple />
+          <button onClick={handleFileSubmit} className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg mt-4">
+            upload
+            </button>
           
           <h2 className="text-xl font-bold mb-4 mt-4">File Name</h2>
           <div className="bg-zinc-100 p-4 rounded-lg">
             <h3 className="font-semibold">File Content</h3>
             {uploadedFile && (
-              <DocViewer documents={[{ uri: URL.createObjectURL(uploadedFile) }]} pluginRenderers={DocViewerRenderers} />
+              <iframe
+              src={file}
+              width="100%"
+              height="500px"
+            />
             )}
           </div>
         </div>
@@ -243,33 +321,22 @@ const FileView = () => {
           </div>
           <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
           {/* Prompt Input */}
-          <div className="mt-4">
-            <label className="font-semibold">Prompt Input</label>
-            <textarea
-              type="text"
-              className="form-input block w-full px-2 py-1 border rounded mt-1"
-              value={promptInput}
-              onChange={(e) => setPromptInput(e.target.value)}
-              placeholder="Enter prompt input"
-            />
-          </div>
+         
           {/* Prompt Output */}
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <label className="font-semibold">Prompt Response</label>
-            <div>{promptOutput}</div>
-          </div>
+            <div>{response}</div>
+          </div> */}
           {/* Submit Button for Prompt */}
-          <button
+          {/* <button
             onClick={handlePromptSubmit}
             className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg mt-4"
           >
             Submit Prompt
-          </button>
+          </button> */}
         </div>
       </div>
-      <div className="flex justify-center items-center mt-4">
-        <button className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg" onClick={() => navigate("/AiReview")}>Go for review</button>
-      </div>
+     
     </div>
   );
 };

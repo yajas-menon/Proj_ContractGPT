@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import { PDFDocument, rgb } from 'pdf-lib';
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function AIReview() {
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -51,7 +52,8 @@ export default function AIReview() {
       outputAIRevise: '',
       outputAdd: '',
     },
-    // Other clauses...
+
+    // ... (other clauses)
   ]);
 
   const toggleExpand = (index) => {
@@ -71,6 +73,17 @@ export default function AIReview() {
     });
   }
 
+  const handleFileUpload = async (e) => {
+    let file = "";
+
+    await getBase64(e.target.files[0]).then((data) => {
+      console.log(data);
+      setFile(data);
+    });
+    setUploadedFile(e.target.files[0]);
+    setFileName(file.name);
+  };
+  
   const handleFileSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -91,24 +104,13 @@ export default function AIReview() {
     await axios(config)
       .then(async (res) => {
         console.log(res);
+        setLoading(false);
         alert("File uploaded successfully");
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
-  };
-
-  const handleFileUpload = async (e) => {
-    let file = "";
-
-    await getBase64(e.target.files[0]).then((data) => {
-      console.log(data);
-      setFile(data);
-    });
-    setUploadedFile(e.target.files[0]);
-    setFileName(file.name);
-
   };
 
   const handleAIRevise = async (index) => {
@@ -141,7 +143,7 @@ export default function AIReview() {
           : "";
       setOutputColours(newOutputColours);
       setLoading(false);
-      alert("AI revised the clause successfully");
+      toast.success("AI revised the clause successfully");
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -182,21 +184,22 @@ export default function AIReview() {
         const generateAgreementRes = await axios(generateAgreementConfig);
         // Handle the response from the second API call if needed
       }
-  
+
       const newClauses = [...clauses];
       newClauses[index].outputAdd = getAnswersRes.data.answer;
       setClauses(newClauses);
-    
+
       setLoading(false);
-      alert("AI revised the clause and generated the agreement form successfully");
+      toast.success("AI revised the clause and generated the agreement form successfully");
     } catch (err) {
       setLoading(false);
       console.log(err);
     }
   };
-  
-  
-  
+
+  const handleApprove = async () => {
+    toast.success("Contract approved successfully");
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -205,14 +208,16 @@ export default function AIReview() {
     }, 2500);
   }, []);
 
+ 
+
   return (
     <div>
       <Navbar />
-      <body className="bg-zinc-100 ">
+      <body className="bg-zinc-100">
         <Loader isLoading={loading} />
         <div className="flex flex-col md:flex-row h-screen">
           <div className="flex-1 p-6 overflow-auto">
-            <div className="bg-white  shadow-lg p-4 rounded-lg">
+            <div className="bg-white shadow-lg p-4 rounded-lg">
               <div className="flex justify-between items-center mb-4">
                 <input type="file" id="file" onChange={handleFileUpload} />
                 <button className="px-4 py-2 bg-gray-900 hover:bg-gray-700 text-white rounded-md"
@@ -223,9 +228,11 @@ export default function AIReview() {
               <div className="text-zinc-800 dark:text-zinc-200">
                 <div className="bg-zinc-100 p-4 rounded-lg mb-4 mt-4">
                   {uploadedFile && (
-                    <DocViewer
-                      documents={[{ uri: URL.createObjectURL(uploadedFile) }]}
-                      pluginRenderers={DocViewerRenderers}
+                    // eslint-disable-next-line jsx-a11y/iframe-has-title
+                    <iframe
+                      src={file}
+                      width="100%"
+                      height="500px"
                     />
                   )}
                 </div>
@@ -233,13 +240,15 @@ export default function AIReview() {
             </div>
           </div>
 
-          <div className="w-full md:w-96 p-6 bg-white  overflow-auto my-4 mx-10 scroll">
+          <div className="w-full md:w-96 p-6 bg-white overflow-auto my-4 mx-10 scroll">
+            <h1 className="text-2xl font-semibold">Non-Negotiable clauses</h1>
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
             {clauses.map((clause, index) => (
               <div key={index} className="mb-4">
                 <h2 className="text-lg font-semibold dark:text-black">
                   {clause.title}
                 </h2>
-                <div className="mt-2 bg-zinc-100  p-4 rounded-lg">
+                <div className="mt-2 bg-zinc-100 p-4 rounded-lg">
                   <p
                     className={`text-sm ${clause.expanded ? '' : 'truncate'}`}
                   >
@@ -247,41 +256,45 @@ export default function AIReview() {
                   </p>
                   <button
                     onClick={() => toggleExpand(index)}
-                    className="mt-2 px-3 py-1 bg-gray-900 hover:bg-gray-700 text-white text-xs rounded-md"
+                    className="mt-2 px-3 py-1 bg-gray-900 hover:bg-gray-700 hover:text-white text-white text-xs rounded-md"
                   >
                     {clause.expanded ? 'Collapse' : 'Expand'}
                   </button>
 
                   <div className="flex">
-                    <button className="mt-2 px-3 py-1 bg-orange-500 text-white text-xs rounded-md"
+                    <button className="mt-2 px-3 py-1 bg-green-500 text-white text-xs rounded-md"
                       onClick={() => handleAIRevise(index)}>
-                      Ai Revise
+                      AI Revise
                     </button>
                     {outputColours[index] === "text-red-500" && (
-                      <button className="mt-2 ml-2 px-3 py-1 bg-orange-500 text-white text-xs rounded-md"
+                      <button className="mt-2 ml-2 px-3 py-1 bg-red-500 text-white text-xs rounded-md"
                         onClick={() => handleAddRevise(index)}>
                         Add
                       </button>
                     )}
                   </div>
-                  <div className="mt-2 ml-2">
-                    {clause.outputAIRevise &&
-                      <p className={`${outputColours[index]} mr-2`}>
-                        AI Revise: {clause.outputAIRevise}
-                      </p>
-                    }
-                    {clause.outputAdd &&
-                      <p className={` ml-2`}>
-                        Add: {clause.outputAdd}
-                      </p>
-                    }
-                  </div>
+
+                  <p className={`mt-2 text-sm ${outputColours[index]}`}>
+                    {clauses[index].outputAIRevise}
+                  </p>
+                  {clauses[index].outputAdd && (
+                    <p className="mt-2 text-sm text-blue-500">
+                      {clauses[index].outputAdd}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
+            <button
+              className="mt-4 px-4 py-2 bg-green-500 text-white text-sm rounded-md"
+              onClick={handleApprove}
+            >
+              Approve Contract
+            </button>
           </div>
         </div>
       </body>
     </div>
   );
 }
+
