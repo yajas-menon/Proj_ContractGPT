@@ -109,7 +109,7 @@ export default function Login() {
                       />
                     </div>
                     <button
-                      className="block w-full bg-zinc-800 hover:bg-zinc-900 text-white font-semibold rounded-lg px-4 py-3 mt-6"
+                      className="block w-full bg-purple hover:bg-dark-purple text-white font-semibold rounded-lg px-4 py-3 mt-6"
                       onClick={handleLogin}
                     >
                       Login
@@ -117,7 +117,7 @@ export default function Login() {
                     <p className="mt-4 text-center">
                       Don't have an account?{" "}
                       <button
-                        className="text-blue-500 hover:text-blue-700"
+                        className="text-sky-blue font-medium hover:text-blue-700"
                         onClick={() => setMode("register")}
                       >
                         Sign up
@@ -202,7 +202,7 @@ export default function Login() {
                       />
                     </div>
                     <button
-                      className="block w-full bg-zinc-800 hover:bg-zinc-900 text-white font-semibold rounded-lg px-4 py-3 mt-6"
+                      className="block w-full bg-purple hover:bg-dark-purple text-white font-semibold rounded-lg px-4 py-3 mt-6"
                       onClick={handleRegister}
                     >
                       Sign Up
@@ -210,7 +210,7 @@ export default function Login() {
                     <p className="mt-4 text-center">
                       Already have an account?{" "}
                       <button
-                        className="text-blue-500 hover:text-blue-700"
+                        className="text-sky-blue font-medium hover:text-blue-700"
                         onClick={() => setMode("login")}
                       >
                         Login

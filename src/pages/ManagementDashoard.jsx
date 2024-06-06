@@ -4,10 +4,12 @@ import GraphComponent3 from "../components/GraphComponent3";
 import GraphComponent4 from "../components/GraphComponent4";
 import Data from "./PowerBI-dash.csv";
 import Papa from "papaparse";
+import { useNavigate } from "react-router-dom";
 
 const ManagementDashboard = () => {
   const [timeFrame, setTimeFrame] = useState(60);
   const [data, setData] = useState([]);
+  const Navigate = useNavigate();
 
   const parseDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
@@ -61,8 +63,13 @@ const ManagementDashboard = () => {
     <div>
       <Navbar />
       <div className="bg-white p-6 mx-10 mt-4">
-        <h1 className="text-3xl font-bold text-black">Management Dashboard</h1>
-        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+        <h1 className="text-3xl font-medium text-black">Management Dashboard</h1>
+        <button onClick={()=>Navigate(-1)} className="text-black my-2 font-medium text-xl hover:bg-purple rounded-lg px-4 py-2 hover:text-white ease-in">
+          {" "}
+          ⬅️ Back
+        </button>
+
+        <hr className="h-px bg-gray-700 border-0 dark:bg-gray-700 mb-2" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white p-4 rounded-lg shadow-md">
             <h2 className="font-bold text-lg">Total SOW In Progress</h2>
