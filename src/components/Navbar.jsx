@@ -12,9 +12,9 @@ const Navbar = ({userRole}) => (
       </a>
       <div className="flex items-center space-x-4">
         <a href="/ContractDashboard" className="text-lg font-medium text-gray-800 hover:text-gray-900">Dashboard</a>
-        <a href='/Adhoc' className='text-lg font-medium text-gray-800 hover:text-gray-900'>Ad-Hoc</a>
         <a href="/fileView" className="text-lg font-medium text-gray-800 hover:text-gray-900">Creation</a>
         <a href="/AiReview" className="text-lg font-medium text-gray-800 hover:text-gray-900">Review</a>
+        <a href='/Adhoc' className='text-lg font-medium text-gray-800 hover:text-gray-900'>Ad-Hoc</a>
         <a href="/execution" className="text-lg font-medium text-gray-800 hover:text-gray-900">Execution</a>
         {/* <a href="/" className="text-lg font-medium text-gray-800 hover:text-gray-900">Logout</a> */}
      
