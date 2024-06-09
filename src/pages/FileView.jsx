@@ -181,12 +181,13 @@ const FileView = () => {
       <Navbar />
       <div>
 
-        <input type="file" id="file" onChange={handleFileUpload1} multiple className="ml-8 mt-2" />
+        <input type="file" id="file" onChange={handleFileUpload1} multiple className="ml-8 mt-2"/>
         <button onClick={handleFileSubmit} className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 rounded-lg mt-4">
           Upload
         </button>
       </div>
-      <div className="flex flex-col lg:flex-row gap-4 p-4 mt-12">
+      <hr className="h-px mx-8 my-4 bg-gray-200 border-0 dark:bg-gray-700"/>
+      <div className="flex flex-col lg:flex-row gap-4 p-4 mt-4">
         <Loader isLoading={loading} />
         <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">
           <input type="file" id="file" onChange={handleFileUpload} />
