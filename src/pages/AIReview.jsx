@@ -219,8 +219,8 @@ export default function AIReview() {
           <div className="flex-1 p-6 overflow-auto">
             <div className="bg-white shadow-lg p-4 rounded-lg">
               <div className="flex justify-between items-center mb-4">
-                <input type="file" id="file" onChange={handleFileUpload} />
-                <button className="px-4 py-2 bg-gray-900 hover:bg-gray-700 text-white rounded-md"
+                <input type="file" id="file"  className="form-input block px-2 py-1 border rounded w-56" onChange={handleFileUpload} />
+                <button className="px-4 py-2 bg-purple hover:bg-dark-purple font-sans font-medium text-white rounded-md"
                   onClick={handleFileSubmit}>
                   Save
                 </button>
@@ -256,7 +256,7 @@ export default function AIReview() {
                   </p>
                   <button
                     onClick={() => toggleExpand(index)}
-                    className="mt-2 px-3 py-1 bg-gray-900 hover:bg-gray-700 hover:text-white text-white text-xs rounded-md"
+                    className="mt-2 px-3 py-1 bg-yellow-400 hover:bg-yellow-700 hover:text-white text-white text-xs rounded-md"
                   >
                     {clause.expanded ? 'Collapse' : 'Expand'}
                   </button>
@@ -285,8 +285,9 @@ export default function AIReview() {
                 </div>
               </div>
             ))}
+            <hr className="h-px border-0 bg-gray-400"></hr>
             <button
-              className="mt-4 px-4 py-2 bg-green-500 text-white text-sm rounded-md"
+              className="mt-4 px-4 py-2 bg-purple hover:bg-dark-purple font-sans text-white text-medium rounded-md"
               onClick={handleApprove}
             >
               Approve Contract

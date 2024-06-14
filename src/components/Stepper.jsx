@@ -34,7 +34,7 @@ const Stepper = () => {
       <div className="flex items-end justify-end mr-40 mt-4">
         {!complete && (
           <button
-            className="btn"
+            className="bg-purple hover:bg-dark-purple px-4 py-2 rounded-lg text-white font-semibold"
             onClick={() => {
               currentStep === steps.length
                 ? setComplete(true)

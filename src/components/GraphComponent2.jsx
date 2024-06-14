@@ -1,11 +1,7 @@
 import React from "react";
 import WorldMap from "react-svg-worldmap";
-import {Chart as ChartJS,
-ArcElement,
-Tooltip,
-Legend,
-} from 'chart.js';
-import {Doughnut} from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -23,32 +19,28 @@ const GraphComponent2 = () => {
     { country: "mx", value: 127318112 }, // mexico
   ];
   const data1 = {
-    labels: [
-      'Compliance',
-      'Non-Compliance',
-      
+    labels: ["Compliance", "Non-Compliance"],
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [300, 50],
+        backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
+        hoverOffset: 4,
+      },
     ],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [300, 50],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-      ],
-      hoverOffset: 4
-    }]
   };
-  const options={
-
-  }
+  const options = {};
 
   return (
     <div>
-      <div class="flex flex-wrap gap-8 p-8">
+      <div class="flex flex-wrap gap-8 p-8 ">
         <div class="flex-1">
           <div class="bg-white shadow rounded-lg p-6">
             <div class="flex justify-between items-center mb-4">
-              <h2 class="text-2xl font-semibold">Compliance Analysis-Y2D</h2>
+              <div>
+                <h2 class="text-2xl font-semibold">Compliance Analysis-Y2D</h2>
+                <hr className="h-px bg-gray-400 border-0 dark:bg-gray-700" />
+              </div>
               <select class="border border-zinc-300 rounded p-2 text-sm">
                 <option>Monthly</option>
                 <option>Weekly</option>
@@ -56,21 +48,20 @@ const GraphComponent2 = () => {
               </select>
             </div>
             <div class="flex justify-center items-center w-6/12 ml-40">
-              <Doughnut
-              data={data1}
-              options={options}
-              >
-
-              </Doughnut>
+              <Doughnut data={data1} options={options}></Doughnut>
             </div>
-            
           </div>
         </div>
 
         <div class="flex-1">
           <div class="bg-white shadow rounded-lg p-6">
             <div class="flex justify-between items-center mb-4">
-              <h2 class="text-2xl font-semibold">Contract Based on Geo Location</h2>
+              <div>
+                <h2 class="text-2xl font-semibold">
+                  Contract Based on Geo Location
+                </h2>
+                <hr className="h-px bg-gray-400 border-0 dark:bg-gray-700" />
+              </div>
             </div>
             <div class="flex justify-center items-center">
               <WorldMap

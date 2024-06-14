@@ -110,7 +110,7 @@ const GraphComponent3 = () => {
     <div>
       <Bar ref={chartRef} data={chartData} options={chartOptions} />
       {chartData !== mainChartData && (
-        <button className="bg-gray-900 text-white rounded-lg px-2 py-2 hover:bg-gray-700" onClick={handleBackClick}>Back</button>
+        <button className="bg-purple hover:bg-dark-purple font-sans textm-medium text-white rounded-lg px-2 py-2" onClick={handleBackClick}>Back</button>
       )}
     </div>
   );
