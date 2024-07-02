@@ -16,6 +16,7 @@ import { Slide, ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManagementDashoard from './pages/ManagementDashoard';
 import TableGenerator from './pages/TableGenerator';
+import VerifyEmail from './pages/VerifyEmail'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route exact path='/managementdashboard' element={<ManagementDashoard />}></Route>
         <Route exact path='/execution' element={<Execution />}></Route>
         <Route exact path='/TableGenerator' element={<TableGenerator />}></Route>
+        <Route exact path='/VerifyEmail' element={<VerifyEmail/>}></Route>
       </Routes>
     </Router>
 
