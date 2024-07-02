@@ -33,6 +33,7 @@ function App() {
         draggable
         pauseOnHover />
       <Routes>
+        
         <Route exact path='/' element={<Login />}></Route>
         <Route exact path='/ContractDashboard' element={<ContractDashboard />}></Route>
         <Route exact path="/Adhoc" element={<Main />}></Route>

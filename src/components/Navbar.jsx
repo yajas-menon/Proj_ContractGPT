@@ -21,7 +21,7 @@ const Navbar = ({userRole}) => (
 
         {/* Add more links here if needed */}
         
-            <img src={Logo} alt='logo' className='h-12 ml-16'/> 
+            {/* <img src={Logo} alt='logo' className='h-12 ml-16'/>  */}
         
       </div>
     </div>
