@@ -209,15 +209,16 @@ const Main = () => {
   const [Evidence, setEvidence] = useState([]);
   const [file, setFile] = useState(null);
   const [fileSize, setFileSize] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [fileName, setFileName] = useState("")
+  
 
   const handleQuestionChange = (event) => {
     setQuestion(event.target.value);
   };
+  
 
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/prompt");
-  };
 
   const handleQuestionSubmit = async (event) => {
     event.preventDefault();
@@ -249,9 +250,9 @@ const Main = () => {
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  
+
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-  
+
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   };
 
@@ -263,6 +264,8 @@ const Main = () => {
         console.log(data);
         setFile(data);
       });
+      setUploadedFile(e.target.files[0])
+      setFileName(uploadedFile.name)
     }
   };
 
@@ -270,8 +273,9 @@ const Main = () => {
     e.preventDefault();
     let obj = {
       EvidenceBinary: file?.split(",")[1],
-      file_name: File.name.split(".").slice(0, -1).join("."),
+      file_name: uploadedFile.name.split(".").slice(0, -1).join("."),
     };
+    console.log(obj);
     let url = "http://127.0.0.1:5000/upload_doc";
     const config = {
       method: "post",
@@ -342,6 +346,19 @@ const Main = () => {
     }, 2500);
   }, []);
 
+  const getFileLink = () => {
+    if (file && fileName) {
+      const base64Prefix = "data:application/octet-stream;base64,";
+      const fileData = base64Prefix.concat(file.split(",")[1]);
+      return {
+        type: "application/octet-stream",
+        href: fileData,
+        download: fileName,
+      };
+    }
+    return null;
+  };
+
   return (
     <div>
       <Navbar />
@@ -392,11 +409,11 @@ const Main = () => {
               <h2 className="text-3xl font-sans font-medium mb-8 text-left">Response:</h2>
               <div className="bg-white p-4 rounded-md border border-gray-300 h-96 overflow-y-auto">
                 <p className="text-bold text-lg">Response: {response}</p>
-                
+
               </div>
             </div>
           </div>
-          <hr className="my-4 mx-8"/>
+          <hr className="my-4 mx-8" />
           <div className="flex flex-row h-full p-8">
             <div className="w-1/2 pr-4">
               <h2 className="text-3xl font-sans font-medium mb-8">Supporting Documents</h2>
@@ -418,10 +435,16 @@ const Main = () => {
                     </option>
                   ))}
                 </select>
-                {
-                  documents1?.find((s) => s.doc_file_name == doc_name)
-                    ?.doc_summarys
-                }
+                {documents1?.find((s) => s.doc_file_name == doc_name)?.doc_summarys}
+                {getFileLink() && (
+                  <a
+                    href={getFileLink().href}
+                    download={getFileLink().download}
+                    className="block mt-4 text-blue-500 hover:underline"
+                  >
+                    Download File
+                  </a>
+                )}
               </div>
             </div>
             <div className="w-1/2 pl-4">

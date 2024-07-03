@@ -19,7 +19,6 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-
     <nav className="bg-white border-gray-200 shadow-md">
       <div className=" flex flex-wrap items-center justify-between p-4 mx-10">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -55,8 +54,8 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-          
-  );
+
+);
 };
 
 export default Navbar;

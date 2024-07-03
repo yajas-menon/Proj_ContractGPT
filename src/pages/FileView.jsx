@@ -9,16 +9,6 @@ const FileView = () => {
   const [metaData, setMetaData] = useState([
     { key: "party 1", value: "" },
     { key: "party 2", value: "" },
-    { key: "Work Location", value: "" },
-    { key: "Working Hours", value: "" },
-    { key: "Resource Name", value: "" },
-    { key: "Role of Resource", value: "" },
-    { key: "Skill Category", value: "" },
-    { key: "Team Size", value: "" },
-    { key: "Start Date", value: "" },
-    { key: "End Date", value: "" },
-    { key: "Billing Rate", value: "" },
-    { key: "Currency", value: "" },
   ]);
 
   const [additionalData, setAdditionalData] = useState([]);

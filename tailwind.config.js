@@ -9,7 +9,9 @@ module.exports = {
         purple:'#714b67',
         'dark-purple':'#5f3f56',
         'grey':'#F3F4F6',
-        'sky-blue':'#017e84'
+        'sky-blue':'#017e84',
+        'deep-sky':'#525A92',
+        'yajas':'#EDE1F9'
       },
     },
   },
