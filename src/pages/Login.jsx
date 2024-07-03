@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar"; // Import the Navbar component
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../context/AuthContext";
 
 
 
@@ -16,6 +17,7 @@ export default function Login() {
     role: "",
   });
   const [mode, setMode] = useState("login");
+  const { login } = useAuth();
 
   const handleLogin = async () => {
     try {
@@ -27,11 +29,14 @@ export default function Login() {
         }
       );
       const role = response.data.user.role;
+      login(role)
       toast.success("Login successful");
       if (role === "reviewer") {
         navigate("/AiReview");
       } else if (role === "creater") {
         navigate("/managementdashboard");
+      } else if (role ==="admin"){
+        navigate("/ContractDashboard")
       }
     } catch (error) {
       toast.error("Invalid email or password");

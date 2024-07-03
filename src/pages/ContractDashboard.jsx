@@ -6,6 +6,7 @@ import CardComponent from "../components/CardComponent";
 import GraphComponent from "../components/GraphComponent";
 import GraphComponent2 from "../components/GraphComponent2";
 import { useNavigate } from "react-router-dom";
+import Chat from "../components/ChatBot";
 
 const ContractDashboard = () => {
   const Navigate = useNavigate();
@@ -27,6 +28,9 @@ const ContractDashboard = () => {
         <GraphComponent />
         <GraphComponent2 />
       </main>
+      <div>
+        <Chat />
+      </div>
     </div>
   );
 };

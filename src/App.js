@@ -16,6 +16,8 @@ import { Slide, ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManagementDashoard from './pages/ManagementDashoard';
 import TableGenerator from './pages/TableGenerator';
+import ProtectedRoute from "./components/ProtectedRoute";
+
 
 
 function App() {
@@ -34,15 +36,15 @@ function App() {
         pauseOnHover />
       <Routes>
         <Route exact path='/' element={<Login />}></Route>
-        <Route exact path='/ContractDashboard' element={<ContractDashboard />}></Route>
-        <Route exact path="/Adhoc" element={<Main />}></Route>
+        <Route exact path='/ContractDashboard'  element={<ProtectedRoute><ContractDashboard/></ProtectedRoute>}></Route>
+        <Route exact path="/Adhoc"element={<ProtectedRoute><Main /></ProtectedRoute>}></Route>
         <Route exact path="/prompt" element={<PromptInput />}></Route>
-        <Route exact path="/fileView" element={<FileView />}></Route>
+        <Route exact path="/fileView" element={<ProtectedRoute><FileView /></ProtectedRoute>}></Route>
         <Route exact path='/ContractReview' element={<ContractReview />}></Route>
         <Route exact path='/negotiation' element={<ContractNegotiation />}></Route>
-        <Route exact path='/AiReview' element={<AIReview />}></Route>
+        <Route exact path='/AiReview' element={<ProtectedRoute><AIReview /></ProtectedRoute>}></Route>
         <Route exact path='/managementdashboard' element={<ManagementDashoard />}></Route>
-        <Route exact path='/execution' element={<Execution />}></Route>
+        <Route exact path='/execution' element={<ProtectedRoute><Execution /></ProtectedRoute>}></Route>
         <Route exact path='/TableGenerator' element={<TableGenerator />}></Route>
       </Routes>
     </Router>
