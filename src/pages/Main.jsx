@@ -271,12 +271,13 @@ const Main = () => {
 
   const handleFileSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     let obj = {
       EvidenceBinary: file?.split(",")[1],
       file_name: uploadedFile.name.split(".").slice(0, -1).join("."),
     };
     console.log(obj);
-    let url = "http://127.0.0.1:5000/upload_doc";
+    let url = "https://contractflow-backend.azurewebsites.net/upload_doc";
     const config = {
       method: "post",
       headers: {
@@ -289,6 +290,7 @@ const Main = () => {
     await axios(config)
       .then(async (res) => {
         console.log(res);
+        setLoading(false)
         toast.success("File uploaded successfully");
       })
       .catch((err) => {
@@ -303,7 +305,7 @@ const Main = () => {
     console.log(obj, messageList);
     try {
       const result = await axios.post(
-        "http://127.0.0.1:5000/get_evidence_from_documents",
+        "https://contractflow-backend.azurewebsites.net/get_evidence_from_documents",
         {
           message_list: messageList,
         }
@@ -323,7 +325,7 @@ const Main = () => {
 
   async function fetchData() {
     try {
-      const result = await axios.post("http://127.0.0.1:5000/get_documents", {
+      const result = await axios.post("https://contractflow-backend.azurewebsites.net/get_documents", {
         question,
       });
       setDocuments1(result.data);
@@ -476,7 +478,7 @@ const Main = () => {
 const fetchAPI = async (e, question) => {
   e.preventDefault();
   try {
-    const res = await axios.post("http://127.0.0.1:5000/get_answers", {
+    const res = await axios.post("https://contractflow-backend.azurewebsites.net/get_answers", {
       question,
     });
     return res.data;

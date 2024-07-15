@@ -10,6 +10,8 @@ export default function AIReview() {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [selectedReviewer, setSelectedReviewer] = useState('');
+  const [reviewers, setReviewers] = useState([]);
   const [outputColours, setOutputColours] = useState({});
   const [clauses, setClauses] = useState([
     {
@@ -91,7 +93,7 @@ export default function AIReview() {
       EvidenceBinary: file?.split(",")[1],
       file_name: uploadedFile.name.split('.').slice(0, -1).join('.')
     };
-    let url = "http://127.0.0.1:5000/upload_doc";
+    let url = "https://contractflow-backend.azurewebsites.net/upload_doc";
     const config = {
       method: "post",
       headers: {
@@ -117,7 +119,7 @@ export default function AIReview() {
     setLoading(true);
     const question = clauses[index].content + ` Is this clause present in the document?`;
     const file_name = "./temp/" + uploadedFile.name;
-    const url = "http://127.0.0.1:5000/get_answers_for_file"; // replace with your API URL
+    const url = "https://contractflow-backend.azurewebsites.net/get_answers_for_file"; // replace with your API URL
     const config = {
       method: "post",
       headers: {
@@ -153,13 +155,13 @@ export default function AIReview() {
   const handleAddRevise = async (index) => {
     setLoading(true);
     const question = clauses[index].content + ` Give me a statement to add clause to the document`;
-    const file_name = "./temp/" + uploadedFile.name;
+    const file_name = "./tmp/" + uploadedFile.name;
     const getAnswersConfig = {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      url: "http://127.0.0.1:5000/get_answers_for_file",
+      url: "https://contractflow-backend.azurewebsites.net/get_answers_for_file",
       data: {
         question,
         file_name,
@@ -176,7 +178,7 @@ export default function AIReview() {
           headers: {
             "Content-Type": "application/json",
           },
-          url: "http://127.0.0.1:5000/contract_review",
+          url: "https://contractflow-backend.azurewebsites.net/contract_review",
           data: {
             "key": textToExcludeNumber,
           },
@@ -208,7 +210,19 @@ export default function AIReview() {
     }, 2500);
   }, []);
 
- 
+  // useEffect(() => {
+  //   const fetchReviewers = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:8000/api/auth/reviwers');
+  //       setReviewers(response.data.reviewers);
+  //     } catch (error) {
+  //       console.error('Error fetching reviewers:', error);
+  //     }
+  //   };    
+
+  //   fetchReviewers();
+  // }, []);
+
 
   return (
     <div>
@@ -225,6 +239,20 @@ export default function AIReview() {
                   Save
                 </button>
               </div>
+              {/* <div className="flex justify-between items-center mb-4">
+                <select
+                  className="form-select block px-2 py-1 border rounded w-56"
+                  value={selectedReviewer}
+                  onChange={(e) => setSelectedReviewer(e.target.value)}
+                >
+                  <option value="">Select a reviewer</option>
+                  {reviewers.map((reviewer) => (
+                    <option key={reviewer._id} value={reviewer.username}>
+                      {reviewer.username}
+                    </option>
+                  ))}
+                </select>
+              </div> */}
               <div className="text-zinc-800 dark:text-zinc-200">
                 <div className="bg-zinc-100 p-4 rounded-lg mb-4 mt-4">
                   {uploadedFile && (

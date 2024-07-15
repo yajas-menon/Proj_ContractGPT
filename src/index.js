@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthContext';
+import { VendorAuthProvider } from './context/VendorAuthContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
+    <VendorAuthProvider>
     <App />
+    </VendorAuthProvider>
   </AuthProvider>
 );
 

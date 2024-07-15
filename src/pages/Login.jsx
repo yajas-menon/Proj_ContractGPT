@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../context/AuthContext";
+import { useVendorAuth } from '../context/VendorAuthContext';
 
 
 
@@ -17,27 +18,58 @@ export default function Login() {
     role: "",
   });
   const [mode, setMode] = useState("login");
+  const [userType, setUserType] = useState("User"); 
   const { login } = useAuth();
+  const { isVendorLoggedIn, vendorRole, vendorLogin, vendorLogout } = useVendorAuth();
+
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:8000/api/auth/login",
+  //       {
+  //         email: formData.email,
+  //         password: formData.password,
+  //       }
+  //     );
+  //     const role = response.data.user.role;
+  //     login(role)
+  //     toast.success("Login successful");
+  //     if (role === "reviewer") {
+  //       navigate("/AiReview");
+  //     } else if (role === "creater") {
+  //       navigate("/managementdashboard");
+  //     } else if (role ==="admin"){
+  //       navigate("/admindashboard")
+  //     }
+  //   } catch (error) {
+  //     toast.error("Invalid email or password");
+  //   }
+  // };
 
   const handleLogin = async () => {
     try {
+      const loginRoute = userType === "Vendor" ? "auth/vendorlogin" : "auth/login";
       const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
+        `http://localhost:8000/api/${loginRoute}`,
         {
           email: formData.email,
           password: formData.password,
         }
       );
       const role = response.data.user.role;
-      login(role)
+      login(role);
       toast.success("Login successful");
       if (role === "reviewer") {
         navigate("/AiReview");
       } else if (role === "creater") {
         navigate("/managementdashboard");
-      } else if (role ==="admin"){
-        navigate("/ContractDashboard")
+      } else if (role === "admin") {
+        navigate("/admindashboard");
+      } else if (userType==="Vendor"){
+        navigate("/vendorpage")
       }
+      
+
     } catch (error) {
       toast.error("Invalid email or password");
     }
@@ -80,6 +112,24 @@ export default function Login() {
                     Sign in to your account to manage your contract documents.
                   </p>
                   <div className="mt-8">
+                  <div className="flex flex-col mb-4">
+                      <label
+                        className="mb-2 font-bold text-lg text-zinc-900"
+                        htmlFor="userType"
+                      >
+                        Login as:
+                      </label>
+                      <select
+                        className="bg-zinc-100 border border-zinc-300 text-zinc-900 rounded-lg focus:outline-none focus:border-blue-500 p-3"
+                        id="userType"
+                        name="userType"
+                        value={userType}
+                        onChange={(e) => setUserType(e.target.value)}
+                      >
+                        <option value="User">User</option>
+                        <option value="Vendor">Vendor</option>
+                      </select>
+                    </div>
                     <div className="flex flex-col mb-4">
                       <label
                         className="mb-2 font-bold text-lg text-zinc-900"

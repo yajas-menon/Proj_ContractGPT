@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from './pages/Main';
@@ -12,12 +12,15 @@ import ContractDashboard from './pages/ContractDashboard';
 import AIReview from './pages/AIReview';
 import Login from './pages/Login';
 import Execution from './pages/ContractExecution';
-import { Slide, ToastContainer, Zoom, toast } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManagementDashoard from './pages/ManagementDashoard';
 import TableGenerator from './pages/TableGenerator';
 import VerifyEmail from './pages/VerifyEmail'
 import ProtectedRoute from './components/ProtectedRoute'
+import VendorOnboarding from './pages/VendorOnboarding';
+import AdminDashboard from './pages/AdminDashboard';
+import VendorPage from './pages/VendorPage';
 
 function App() {
 
@@ -47,6 +50,9 @@ function App() {
         <Route exact path='/execution' element={<ProtectedRoute><Execution /></ProtectedRoute>}></Route>
         <Route exact path='/TableGenerator' element={<TableGenerator />}></Route>
         <Route exact path='/VerifyEmail' element={<VerifyEmail/>}></Route>
+        <Route exact path='/vendoronboarding' element={<VendorOnboarding/>}></Route>
+        <Route exact path='admindashboard' element={<AdminDashboard/>}></Route>
+        <Route exact path="/vendorpage" element={<VendorPage/>}></Route>
       </Routes>
     </Router>
 
