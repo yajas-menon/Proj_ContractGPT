@@ -3,7 +3,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from './pages/Main';
-import PromptInput from './pages/PromptInput';
 import FileView from './pages/FileView';
 import ContractReview from './pages/ContractReview';
 import ContractNegotiation from './pages/ContractNegotiation';
@@ -15,12 +14,14 @@ import Execution from './pages/ContractExecution';
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManagementDashoard from './pages/ManagementDashoard';
-import TableGenerator from './pages/TableGenerator';
 import VerifyEmail from './pages/VerifyEmail'
 import ProtectedRoute from './components/ProtectedRoute'
 import VendorOnboarding from './pages/VendorOnboarding';
 import AdminDashboard from './pages/AdminDashboard';
 import VendorPage from './pages/VendorPage';
+import ClauseSelection from './pages/ClauseSelection';
+import UserAddClause from './pages/UserAddClause';
+import Editor from './pages/Editor';
 
 function App() {
 
@@ -41,18 +42,19 @@ function App() {
         <Route exact path='/' element={<Login />}></Route>
         <Route exact path='/ContractDashboard'  element={<ProtectedRoute><ContractDashboard/></ProtectedRoute>}></Route>
         <Route exact path="/Adhoc"element={<ProtectedRoute><Main /></ProtectedRoute>}></Route>
-        <Route exact path="/prompt" element={<PromptInput />}></Route>
         <Route exact path="/fileView" element={<ProtectedRoute><FileView /></ProtectedRoute>}></Route>
         <Route exact path='/ContractReview' element={<ContractReview />}></Route>
-        <Route exact path='/negotiation' element={<ContractNegotiation />}></Route>
+        {/* <Route exact path='/negotiation' element={<ContractNegotiation />}></Route> */}
         <Route exact path='/AiReview' element={<ProtectedRoute><AIReview /></ProtectedRoute>}></Route>
         <Route exact path='/managementdashboard' element={<ManagementDashoard />}></Route>
         <Route exact path='/execution' element={<ProtectedRoute><Execution /></ProtectedRoute>}></Route>
-        <Route exact path='/TableGenerator' element={<TableGenerator />}></Route>
         <Route exact path='/VerifyEmail' element={<VerifyEmail/>}></Route>
         <Route exact path='/vendoronboarding' element={<VendorOnboarding/>}></Route>
         <Route exact path='admindashboard' element={<AdminDashboard/>}></Route>
         <Route exact path="/vendorpage" element={<VendorPage/>}></Route>
+        <Route exact path="/select_clauses" element={<ClauseSelection/>}></Route>
+        <Route exact path="/useraddclause" element={<UserAddClause/>}></Route>
+        <Route exact path="/editor" element={<Editor/>}></Route>
       </Routes>
     </Router>
 

@@ -67,7 +67,7 @@ export default function ClauseReview() {
       EvidenceBinary: file?.split(",")[1],
       file_name:uploadedFile.name.split('.').slice(0, -1).join('.')
     };
-    let url = "http://127.0.0.1:5000/upload_doc";
+    let url = "https://contractflow-backend.azurewebsites.net/upload_doc";
     const config = {
       method: "post",
       headers: {
@@ -107,7 +107,7 @@ export default function ClauseReview() {
     setLoading(true);
     const question = clauses[index].content + ` Is this clause present in the document?`;
     const file_name = "./temp/" + uploadedFile.name;
-    const url = "http://127.0.0.1:5000/get_answers_for_file"; // replace with your API URL
+    const url = "https//contractflow-backend.azurewebsites.net/get_answers_for_file"; // replace with your API URL
     const config = {
       method: "post",
       headers: {

@@ -12,7 +12,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchVendors = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/auth/getvendors');
+                const response = await axios.get('https://proj-contract-gpt-server.vercel.app/api/auth/getvendors');
                 console.log(response)
                 setVendors(response.data);
             } catch (error) {
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 
     const handleAccept = async (id) => {
         try {
-            await axios.patch(`http://localhost:8000/api/auth/acceptvendors/${id}/accept`);
+            await axios.patch(`https://proj-contract-gpt-server.vercel.app/api/auth/acceptvendors/${id}/accept`);
             setVendors(vendors.map(vendor => vendor._id === id ? { ...vendor, status: 'Accepted' } : vendor));
             toast.success("Vendor Granted Access")
 
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
 
     const handleReject = async (id) => {
         try {
-            await axios.patch(`http://localhost:8000/api/auth/rejectvendors/${id}/reject`);
+            await axios.patch(`https://proj-contract-gpt-server.vercel.app/api/auth/rejectvendors/${id}/reject`);
             setVendors(vendors.map(vendor => vendor._id === id ? { ...vendor, status: 'Rejected' } : vendor));
             toast.error("Vendor Rejected")
         } catch (error) {

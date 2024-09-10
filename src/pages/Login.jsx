@@ -50,7 +50,7 @@ export default function Login() {
     try {
       const loginRoute = userType === "Vendor" ? "auth/vendorlogin" : "auth/login";
       const response = await axios.post(
-        `http://localhost:8000/api/${loginRoute}`,
+        `https://proj-contract-gpt-server.vercel.app/api/${loginRoute}`,
         {
           email: formData.email,
           password: formData.password,
@@ -77,7 +77,7 @@ export default function Login() {
 
   const handleRegister = async () => {
     try {
-      await axios.post("http://localhost:8000/api/auth/register", {
+      await axios.post("https://proj-contract-gpt-server.vercel.app/api/auth/register", {
         username: formData.name,
         email: formData.email,
         password: formData.password,

@@ -4,7 +4,6 @@ import Loader from "../components/Loader";
 import axios from "axios";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
-import ReactDocViewer from 'react-doc-viewer';
 
 const FileView = () => {
   const [metaData, setMetaData] = useState([
@@ -18,7 +17,6 @@ const FileView = () => {
   const [fileName, setFileName] = useState("");
   const [uploadedFile, setUploadedFile] = useState(null);
   const [checkResult, setCheckResult] = useState(null);
-  const [pdfUrl, setPdfUrl] = useState(null);
 
 
   // Function to handle changes in input fields
@@ -186,6 +184,28 @@ const FileView = () => {
     setCheckResult(randomResponse);
   };
 
+  const handleGetFiles = async () => {
+    const filePath = 'modified_template.docx'; // Replace with the actual path of the file you want to download
+    const downloadUrl = `https://contractflow-backend.azurewebsites.net/get-files/${filePath}`;
+
+    try {
+      const response = await axios.get(downloadUrl, {
+        responseType: 'blob', 
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filePath;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+    } catch (error) {
+      console.error('Error downloading the file:', error);
+    }
+  };
+
 
   return (
     <div>
@@ -224,6 +244,11 @@ const FileView = () => {
               className="mx-2 bg-purple hover:bg-dark-purple font-sans font-medium text-white px-4 py-2 rounded-lg mt-4"
             >
               Proposal to SoW
+            </button>
+            <button 
+            onClick={handleGetFiles}
+            className="mx-2 bg-purple hover:bg-dark-purple font-sans font-medium text-white px-4 py-2 rounded-lg mt-4">
+              Download File
             </button>
             <div className="flex flex-col lg:flex-row gap-4 p-4 mt-12">
               <div className="flex-1 bg-white shadow-lg rounded-lg p-4 overflow-auto">

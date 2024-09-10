@@ -21,7 +21,7 @@ const VendorOnboarding = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/vendors', formData);
+      const response = await axios.post('https://proj-contract-gpt-server.vercel.app/api/auth/vendors', formData);
 
       if (response.status === 201) {
         toast.success("Vendor Onboarded Successfully")

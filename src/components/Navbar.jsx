@@ -11,6 +11,10 @@ const Navbar = () => {
     logout();
     navigate('/');
   };
+
+  const handleOnboarding = () => {
+    navigate('/vendoronboarding');
+  };
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
@@ -31,12 +35,10 @@ const Navbar = () => {
                 <>
                   <a href="/ContractDashboard" className="text-lg font-medium text-gray-800 hover:text-gray-900">Dashboard</a>
                   <a href="/fileView" className="text-lg font-medium text-gray-800 hover:text-gray-900">Creation</a>
-                  <a href="/AiReview" className="text-lg font-medium text-gray-800 hover:text-gray-900">Review</a>
+                  <a href="/useraddclause" className="text-lg font-medium text-gray-800 hover:text-gray-900">Review</a>
                   <a href="/Adhoc" className="text-lg font-medium text-gray-800 hover:text-gray-900">Ad-Hoc</a>
+                  <a href="/editor " className="text-lg font-medium text-gray-800 hover:text-gray-900">Create Template</a>
                 </>
-              )}
-              {userRole !== 'admin' && userRole !== 'creator' && (
-                <a href="/vendoronboarding" className="text-lg font-medium text-gray-800 hover:text-gray-900">Onboarding</a>
               )}
               <div className="relative">
                 <button onClick={toggleDropdown} className="flex items-center space-x-2">
@@ -48,7 +50,12 @@ const Navbar = () => {
                     <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 w-full text-left">
                       Logout
                     </button>
+                    <button onClick={handleOnboarding} className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 w-full text-left">
+                      Onboarding
+                    </button>
                   </div>
+
+                  
                 )}
               </div>
             </>
