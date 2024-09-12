@@ -10,7 +10,7 @@ export default function UserAddClause() {
 
   const handleAddClause = async () => {
     try {
-      const res = await axios.post('http://localhost:8000/api/auth/add_clause', {
+      const res = await axios.post('https://proj-contract-gpt-server.vercel.app/api/auth/add_clause', {
         title,
         content,
       });

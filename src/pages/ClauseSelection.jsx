@@ -13,7 +13,7 @@ export default function ClauseSelection() {
   useEffect(() => {
     const fetchClauses = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/auth/clauses");
+        const res = await axios.get("https://proj-contract-gpt-server.vercel.app/api/auth/clauses");
         setClauses(res.data);
       } catch (err) {
         console.error(err);
