@@ -47,11 +47,11 @@ const Navbar = () => {
                 </button>
                 {showDropdown && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1">
-                    <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 w-full text-left">
-                      Logout
-                    </button>
                     <button onClick={handleOnboarding} className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 w-full text-left">
                       Onboarding
+                    </button>
+                    <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 w-full text-left">
+                      Logout
                     </button>
                   </div>
 

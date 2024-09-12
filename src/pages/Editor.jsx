@@ -55,7 +55,7 @@ const TextEditor = () => {
 
     try {
       // Send document content and recipient email to backend
-      await axios.post("/api/send-email", documentData, {
+      await axios.post("https://proj-contract-gpt-server.vercel.app/api/auth/send-email", documentData, {
         headers: {
           "Content-Type": "application/json",
         },
