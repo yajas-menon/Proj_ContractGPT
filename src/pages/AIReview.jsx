@@ -272,97 +272,107 @@ export default function AIReview() {
     }, 2500);
   }, []); 
   return (
-    <div>
-      <Navbar />
-      <body className="bg-zinc-100">
-        <Loader isLoading={loading} />
-        <div className="flex flex-col md:flex-row h-screen">
-          <div className="flex-1 p-6 overflow-auto">
-            <div className="bg-white shadow-lg p-4 rounded-lg">
-              <div className="flex justify-between items-center mb-4">
-                <input
-                  type="file"
-                  id="file"
-                  className="form-input block px-2 py-1 border rounded w-56"
-                  onChange={handleFileUpload}
-                />
-                <button
-                  className="px-4 py-2 bg-purple hover:bg-dark-purple font-sans font-medium text-white rounded-md"
-                  onClick={handleFileSubmit}
-                >
-                  Save
-                </button>
-              </div>
-              <div className="text-zinc-800 dark:text-zinc-200">
-                <div className="bg-zinc-100 p-4 rounded-lg mb-4 mt-4">
-                  {uploadedFile && (
-                    // eslint-disable-next-line jsx-a11y/iframe-has-title
-                    <iframe src={file} width="100%" height="500px" />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="min-h-screen bg-zinc-100">
+  <Navbar />
 
-          <div className="w-full md:w-96 p-6 bg-white overflow-auto my-4 mx-10 scroll">
-            <h1 className="text-2xl font-semibold">Non-Negotiable Clauses</h1>
-            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-            {selectedClauses.map((clause, index) => (
-  <div key={index} className="mb-4">
-    <h2 className="text-lg font-semibold dark:text-black">
-      {clause.title}
-    </h2>
-    <div className="mt-2 bg-zinc-100 p-4 rounded-lg">
-      <p className={`text-sm ${expandedIndices.includes(index) ? '' : 'truncate'}`}>
-        {clause.content}
-      </p>
-      <button
-        onClick={() => toggleExpand(index)}
-        className="mt-2 px-3 py-1 bg-yellow-400 hover:bg-yellow-700 hover:text-white text-white text-xs rounded-md"
-      >
-        {expandedIndices.includes(index) ? 'Collapse' : 'Expand'}
-      </button>
+  <Loader isLoading={loading} />
 
-      <div className="flex mt-2">
+  <div className="container mx-auto p-6 flex flex-col md:flex-row h-full gap-6">
+    {/* File Upload and Preview Section */}
+    <div className="flex-1 bg-white shadow-lg rounded-lg p-6 overflow-auto">
+      <div className="flex justify-between items-center mb-4">
+        <input
+          type="file"
+          id="file"
+          className="form-input block w-56 px-2 py-1 border rounded"
+          onChange={handleFileUpload}
+        />
         <button
-          className="px-3 py-1 bg-green-500 text-white text-xs rounded-md"
-          onClick={() => handleAIRevise(index)}
+          className="px-4 py-2 bg-blue-500 hover:bg-blue-700 font-medium text-white rounded-md"
+          onClick={handleFileSubmit}
         >
-          AI Revise
+          Save
         </button>
-        {outputColours[index] === "text-red-500" && (
-          <button
-            className="ml-2 px-3 py-1 bg-red-500 text-white text-xs rounded-md"
-            onClick={() => handleAddRevise(index)}
-          >
-            Add
-          </button>
-        )}
       </div>
 
-      <p className={`mt-2 text-sm ${outputColours[index]}`}>
-        {clause.outputAIRevise}
-      </p>
-      {clause.outputAdd && (
-        <p className="mt-2 text-sm text-blue-500">
-          {clause.outputAdd}
-        </p>
-      )}
+      <div className="text-zinc-800 dark:text-zinc-200">
+        {uploadedFile && (
+          <div className="bg-zinc-100 p-4 rounded-lg">
+            {/* Preview the uploaded file */}
+            <iframe
+              src={file}
+              width="100%"
+              height="500px"
+              className="border rounded-lg"
+            />
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-))}
 
+    {/* Clauses Section */}
+    <div className="w-full md:w-96 bg-white shadow-lg rounded-lg p-6 overflow-auto">
+      <h1 className="text-2xl font-semibold">Eligibilty Criterias</h1>
+      <hr className="my-4 border-gray-200" />
 
-            <hr className="h-px border-0 bg-gray-400"></hr>
+      {selectedClauses.map((clause, index) => (
+        <div key={index} className="mb-6">
+          <h2 className="text-lg font-semibold">{clause.title}</h2>
+          <div className="mt-2 bg-zinc-100 p-4 rounded-lg">
+            {/* Clause Content */}
+            <p className={`text-sm ${expandedIndices.includes(index) ? '' : 'truncate'}`}>
+              {clause.content}
+            </p>
             <button
-              className="mt-4 px-4 py-2 bg-purple hover:bg-dark-purple font-sans text-white text-medium rounded-md"
-              onClick={handleApprove}
+              onClick={() => toggleExpand(index)}
+              className="mt-2 px-3 py-1 bg-yellow-400 hover:bg-yellow-500 text-white text-xs rounded-md"
             >
-              Approve Contract
+              {expandedIndices.includes(index) ? 'Collapse' : 'Expand'}
             </button>
+
+            {/* Action Buttons */}
+            <div className="flex gap-2 mt-2">
+              <button
+                className="px-3 py-1 bg-teal-500 hover:bg-teal-700 text-white text-xs rounded-md"
+                onClick={() => handleAIRevise(index)}
+              >
+                AI Revise
+              </button>
+
+              {outputColours[index] === "text-red-500" && (
+                <button
+                  className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white text-xs rounded-md"
+                  onClick={() => handleAddRevise(index)}
+                >
+                  Add
+                </button>
+              )}
+            </div>
+
+            {/* AI Revised Output */}
+            <p className={`mt-2 text-sm ${outputColours[index]}`}>
+              {clause.outputAIRevise}
+            </p>
+
+            {clause.outputAdd && (
+              <p className="mt-2 text-sm text-blue-500">
+                {clause.outputAdd}
+              </p>
+            )}
           </div>
         </div>
-      </body>
+      ))}
+
+      <hr className="my-4 border-gray-400" />
+      <button
+        className="w-full px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md"
+        onClick={handleApprove}
+      >
+        Approve
+      </button>
     </div>
+  </div>
+</div>
+
   );
 }

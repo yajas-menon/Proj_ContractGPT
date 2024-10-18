@@ -22,6 +22,7 @@ import VendorPage from './pages/VendorPage';
 import ClauseSelection from './pages/ClauseSelection';
 import UserAddClause from './pages/UserAddClause';
 import Editor from './pages/Editor';
+import Extract from './pages/Extract';
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
         <Route exact path="/select_clauses" element={<ClauseSelection/>}></Route>
         <Route exact path="/useraddclause" element={<UserAddClause/>}></Route>
         <Route exact path="/editor" element={<Editor/>}></Route>
+        <Route exact path='/extract' element={<Extract/>}></Route>
       </Routes>
     </Router>
 

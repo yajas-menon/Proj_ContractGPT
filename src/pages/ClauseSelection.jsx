@@ -46,7 +46,7 @@ export default function ClauseSelection() {
               className="mt-4 w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition-colors"
               onClick={() => handleSelectClause(clause)}
             >
-              Select Clause
+              Select Criteria!
             </button>
           </div>
         ))}

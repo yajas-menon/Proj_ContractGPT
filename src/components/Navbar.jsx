@@ -38,6 +38,7 @@ const Navbar = () => {
                   <a href="/useraddclause" className="text-lg font-medium text-gray-800 hover:text-gray-900">Review</a>
                   <a href="/Adhoc" className="text-lg font-medium text-gray-800 hover:text-gray-900">Ad-Hoc</a>
                   <a href="/editor " className="text-lg font-medium text-gray-800 hover:text-gray-900">Create Template</a>
+                  <a href='/extract' className='text-lg font-medium text-gray-800 hover:text-gray-900'>Extract</a>
                 </>
               )}
               <div className="relative">

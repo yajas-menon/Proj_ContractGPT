@@ -4,14 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 export default function UserAddClause() {
-  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
   const handleAddClause = async () => {
     try {
       const res = await axios.post('https://proj-contract-gpt-server.vercel.app/api/auth/add_clause', {
-        title,
         content,
       });
       alert('Clause added successfully');
@@ -28,25 +26,12 @@ export default function UserAddClause() {
     <div>
         <Navbar/>
     <div className="max-w-2xl mt-20 mx-auto p-8 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Add Your Clause</h1>
-      
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2" htmlFor="title">
-          Clause Title
-        </label>
-        <input
-          id="title"
-          type="text"
-          placeholder="Enter clause title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-      </div>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">Add your Eligibilty Criteria!</h1>
+        
 
       <div className="mb-4">
         <label className="block text-gray-700 font-semibold mb-2" htmlFor="content">
-          Clause Content
+         Content
         </label>
         <textarea
           id="content"
@@ -61,7 +46,7 @@ export default function UserAddClause() {
         onClick={handleAddClause}
         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
         >
-        Add Clause
+        Add Criteria
       </button>
       <button
         onClick={handleSkip}

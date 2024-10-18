@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import { toast } from "react-toastify";
 
 const modules = {
   toolbar: [
@@ -44,7 +45,7 @@ const TextEditor = () => {
   // Function to handle sending the document via email
   const handleSendDocument = async () => {
     if (!selectedVendor) {
-      alert("Please select a vendor from the dropdown.");
+      toast.error("Please select a vendor from the dropdown.");
       return;
     }
 
@@ -60,10 +61,10 @@ const TextEditor = () => {
           "Content-Type": "application/json",
         },
       });
-      alert("Document sent successfully via email!");
+      toast.success("Document sent successfully via email!");
     } catch (error) {
       console.error("Error sending document:", error);
-      alert("Failed to send the document.");
+      toast.error("Failed to send the document.");
     }
   };
 
